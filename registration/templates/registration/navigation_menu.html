@@ -1,0 +1,69 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'registration/css/style.css' %}" type="text/css">
+    <title>{{ title }}</title>
+</head>
+<body>
+
+    {% block main_navigation %}
+    <nav id="navigation">
+        <div id="main-nav-wrapper">
+            <ul id="main-nav">
+                <li class="logo-wrapper main-nav-item">
+                    <img class="logo" src="{% static 'registration/images/logo.png' %}" alt="mill and text 'Notes'">
+                </li>
+                <li class="menu-wrapper main-nav-item">
+                    <div id="nav-menu">
+                        <ul class="menu-links">
+                            <li class="menu-link-wrapper">
+                                <a class="menu-link" href="#">
+                                    About us
+                                </a>
+                            </li>
+                            <li class="menu-link-wrapper">
+                                <a class="menu-link" href="#">
+                                    News
+                                </a>
+                            </li>
+                            <li class="menu-link-wrapper">
+                                <a class="menu-link" href="#">
+                                    Log in
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main id="main_content">
+        <div id="reg-wrapper">
+            <form id="reg-form">
+                <h1 id="reg-form__header">Registration</h1>
+                <fieldset id="reg--first-step">
+                    <input type="text" id="usr-name" placeholder="Username ...">
+                    <input type="email" id="usr-mail" placeholder="E-mail ...">
+                    <input type="email" id="usr-mail-repeat" placeholder="Repeat your e-mail ...">
+                </fieldset>
+    
+                <button type="button" id="reg--next-step__button">Next</button>
+    
+                <fieldset id="reg-second-step">
+                </fieldset>
+            </form>
+        </div>
+    </main>
+    {% endblock main_navigation %}
+
+    {% block main_content %}
+    {% endblock %}
+
+</body>
+</html>
