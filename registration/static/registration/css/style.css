@@ -1,0 +1,151 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+    background: url(../images/background.png);
+	font-family: 'Quicksand';
+	font-size: 33px;
+	color: #575757;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.logo {
+}
+
+#main-nav {
+	padding: 42px 42px 0px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	max-block-size: 100%;
+}
+
+.menu-wrapper{
+	margin-left: 10px;
+}
+
+#nav-menu {
+	background-color: #ffffff;
+	border-radius: 34px;
+}
+
+.menu-links {
+	display: flex;
+	justify-content: space-between;
+}
+
+.menu-link-wrapper {
+	box-sizing: content-box;
+	margin: 55px;
+	margin: 14px 37px;
+}
+
+.menu-link:active,
+.menu-link:hover,
+.menu-link {
+	color: #000;
+}
+
+#main_content {
+}
+
+#reg-wrapper {
+	background-color: #ffffff;
+	border-radius: 50px;
+	max-width: 600px;
+	max-height: 470px;
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+#reg-form {
+	text-align: center;
+}
+
+#reg-form__header {
+	font-size: 50px;
+	padding: 17px 0 17px;
+}
+
+#reg--first-step {
+	display: absolute;
+	flex-direction: column;
+}
+
+#usr-mail,
+#usr-mail-repeat,
+#usr-name {
+	font-family: 'Quicksand';
+	font-size: 40px;
+	border-radius: 30px;
+	text-decoration: none;
+	margin: 0 65px 48px;
+	text-indent: 30px;
+	background-color: #d5d5d5;
+}
+
+#usr-name {
+	margin-top: 10px;
+}
+
+#usr-mail-repeat {
+	margin-bottom: 25px;
+}
+
+#reg--next-step__button {
+	float: right;
+	margin: 0 65px 15px;
+	background-color: #6e4dea;
+	color: #ffffff;
+	font-family: 'Quicksand';
+	font-size: 25px;
+	width: 177px;
+	height: 40px;
+	border-radius: 10px;
+}
+
+#reg--next-step__button:hover {
+	cursor: pointer;
+}
