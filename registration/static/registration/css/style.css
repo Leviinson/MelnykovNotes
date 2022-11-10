@@ -46,7 +46,9 @@ table {
 	border-spacing: 0;
 }
 
-.logo {
+#navigation {
+	position: absolute;
+	width: 100%;
 }
 
 #main-nav {
@@ -54,11 +56,6 @@ table {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	max-block-size: 100%;
-}
-
-.menu-wrapper{
-	margin-left: 10px;
 }
 
 #nav-menu {
@@ -73,8 +70,7 @@ table {
 
 .menu-link-wrapper {
 	box-sizing: content-box;
-	margin: 55px;
-	margin: 14px 37px;
+	margin: 15px 35px;
 }
 
 .menu-link:active,
@@ -84,68 +80,86 @@ table {
 }
 
 #main_content {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
 }
 
 #reg-wrapper {
 	background-color: #ffffff;
 	border-radius: 50px;
-	max-width: 600px;
-	max-height: 470px;
 	display: inline-block;
-	position: absolute;
-	left: 0;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	margin: auto;
 }
 
 #reg-form {
 	text-align: center;
+	overflow: hidden;
 }
 
 #reg-form__header {
 	font-size: 50px;
-	padding: 17px 0 17px;
+	margin: 30px 0 40px;
 }
 
-#reg--first-step {
-	display: absolute;
+#reg-steps-wrapper {
+	display: grid;
+	width: 480px;
+
+	grid-template-columns: 100% 100%;
+	position: relative;
+	left: 0;
+
+	transition: left 0.5s ease;
+}
+
+#reg-first-step,
+#reg-second-step {
+	display: flex;
 	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 #usr-mail,
 #usr-mail-repeat,
-#usr-name {
+#usr-name,
+#usr-passw,
+#usr-passw-repeat {
 	font-family: 'Quicksand';
-	font-size: 40px;
+	font-size: 35px;
 	border-radius: 30px;
 	text-decoration: none;
-	margin: 0 65px 48px;
+	margin: 0 45px 25px;
 	text-indent: 30px;
 	background-color: #d5d5d5;
+	border-style: groove;
+	width: max-content;
 }
 
-#usr-name {
-	margin-top: 10px;
+.errorlist {
+	margin: 0 10px 10px;
+	font-size: 25px;
+	color: #ff5858;
 }
 
-#usr-mail-repeat {
-	margin-bottom: 25px;
-}
-
-#reg--next-step__button {
-	float: right;
-	margin: 0 65px 15px;
+#reg-next-step__button,
+#reg-submit-step__button,
+#reg-previous-step__button {
+	margin: 0 20px 30px;
+	padding: 5px 10px;
 	background-color: #6e4dea;
 	color: #ffffff;
 	font-family: 'Quicksand';
 	font-size: 25px;
-	width: 177px;
-	height: 40px;
+	display: inline-block;
 	border-radius: 10px;
+	transition: background-color 0.3s;
 }
 
-#reg--next-step__button:hover {
+#reg-next-step__button:hover,
+#reg-submit-step__button:hover,
+#reg-previous-step__button:hover {
 	cursor: pointer;
+	background-color: #4c35a0;
 }
