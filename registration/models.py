@@ -8,7 +8,6 @@ class AccountManager(BaseUserManager):
 
     def create_user(self, email: str = None, username:str = None, password: str = None):
         if not all(x for x in (email, username, password)):
-            print(123)
             raise ValidationError('This field is required [!]')
         
         user = self.model(
