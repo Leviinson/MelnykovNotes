@@ -7,7 +7,8 @@ class AccountManager(BaseUserManager):
 
 
     def create_user(self, email: str = None, username:str = None, password: str = None):
-        if not email or not password or not username:
+        if not all(x for x in (email, username, password)):
+            print(123)
             raise ValidationError('This field is required [!]')
         
         user = self.model(
@@ -20,7 +21,7 @@ class AccountManager(BaseUserManager):
         return user
 
     def create_superuser(self, email: str = None, username:str = None, password: str = None):
-        if not email or not password or not username:
+        if not all(x for x in (email, username, password)):
             raise ValidationError('This field is required [!]')
 
         user = self.create_user(
@@ -55,8 +56,3 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __repr__(self):
         return f"[{self.email} -- {self.last_login}]"
-
-
-
-
-
