@@ -12,6 +12,8 @@ from typing import Dict
 
 
 from .dataclasses import FormsFields
+from .models import CustomUser
+
 
 
 class RegisterUserForm(forms.ModelForm):
@@ -58,12 +60,12 @@ class RegisterUserForm(forms.ModelForm):
         '''Checks the identity of the entered mails and passwords.
         Return`s error text to the form if fields aren`t similar.'''
         cleaned_data = super().clean()
-        passwords_and_emails = self._get__email_and_password_from_form(cleaned_data = cleaned_data)
+        passwords_and_emails = self._get_email_and_password_from_form(cleaned_data = cleaned_data)
 
-        if not '' in passwords_and_emails.values():
+        #equivalent for: '' in passwords_and_emails.values() or not Nont in password_and_emails.values()
+        if not any(x in ('', None) for x in passwords_and_emails.values()): 
             
             if passwords_and_emails['email'] != passwords_and_emails['email_conf']:
-                print(passwords_and_emails['email'], passwords_and_emails['email_conf'])
                 self.add_error('email_conf', ValidationError('Emails weren`t similar'))
             
             if passwords_and_emails['password'] != passwords_and_emails['password_conf']:
@@ -71,7 +73,8 @@ class RegisterUserForm(forms.ModelForm):
                 
         return cleaned_data
 
-    def _get__email_and_password_from_form(self, cleaned_data: dict) -> Dict[str, str]:
+
+    def _get_email_and_password_from_form(self, cleaned_data: dict) -> Dict[str, str]:
         '''Returns dict with values from form fields:
             email, email_conf, password, password_conf.'''
         result = {}
@@ -82,4 +85,9 @@ class RegisterUserForm(forms.ModelForm):
         return result
 
     
-  
+    def save(self, commit = False):
+        user: CustomUser  = super().save(commit = False)
+        user.set_password(self.cleaned_data['password'])
+        if commit:
+            user.save()
+        return user
