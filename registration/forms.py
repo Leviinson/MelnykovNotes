@@ -1,7 +1,5 @@
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 
-from django.core.validators import EmailValidator
 from django.core.exceptions import ValidationError
 
 from django import forms
@@ -11,7 +9,6 @@ from typing import Any
 from typing import Dict
 
 
-from .dataclasses import FormsFields
 from .models import CustomUser
 
 
