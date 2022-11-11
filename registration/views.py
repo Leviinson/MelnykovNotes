@@ -1,8 +1,8 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
-from django.contrib.auth import get_user_model
 from django.contrib import messages
 from .forms import RegisterUserForm
+
 
 # Create your views here.
 def register_user(request):
@@ -16,19 +16,9 @@ def register_user(request):
             'password_conf': request.POST['password_conf']
         }
         reg_form = RegisterUserForm(dict_form_form)
-
         if reg_form.is_valid():
-
-            user = get_user_model()
-            user_authentication_data = reg_form.cleaned_data
-            user.objects.create_user(
-                username = user_authentication_data['username'],
-                password = user_authentication_data['password'],
-                email = user_authentication_data['email']
-            )
+            reg_form.save(commit = True)
             return redirect('login')
-
-        messages.error(request, '"Unsuccessful registration. Invalid information."')
     else:
         reg_form = RegisterUserForm()
         
