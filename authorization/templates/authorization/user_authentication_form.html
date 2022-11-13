@@ -1,0 +1,19 @@
+{% extends 'authorization/navigation_menu.html' %}
+
+{% block main_content %}
+<main id="main_content">
+    <div id="auth-wrapper">
+        <form id="auth-form" action="{% url 'authentication' %}" method="post">
+            {% csrf_token %}
+            <h1 id="auth-form__header">Sign in</h1>
+            <fieldset id="auth-fields">
+                {{ form.as_p }}
+                <div id="auth-menu">
+                    <button id="auth-submit__button" type="submit">Sign in</button>
+                    <a id="auth-reset-passw__button">Forget your password?</a>
+                </div>
+            </fieldset>            
+        </form>
+    </div>
+</main>
+{% endblock main_content %}

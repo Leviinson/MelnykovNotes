@@ -21,21 +21,19 @@
                     <li class="menu-wrapper main-nav-item">
                         <div id="nav-menu">
                             <ul class="menu-links">
-                                <li class="menu-link-wrapper">
-                                    <a class="menu-link" href="{% url 'login' %}">
-                                        About us
-                                    </a>
-                                </li>
-                                <li class="menu-link-wrapper">
-                                    <a class="menu-link" href="{% url 'login' %}">
-                                        News
-                                    </a>
-                                </li>
-                                <li class="menu-link-wrapper">
-                                    <a class="menu-link" href="{% url 'login' %}">
-                                        Log in
-                                    </a>
-                                </li>
+                                {% for option in menu %}
+                                    <li class="menu-link-wrapper">
+                                        <a class="menu-link" href="{% url option.url %}">
+                                            {{ option.title }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+
+                                {% if not request.user.is_authenticated %}
+                                    <li class="menu-link-wrapper">
+                                        <a class="menu-link" href="{% url 'registration' %}">Sign up</a> | <a class="menu-link" href="{% url 'authentication' %}">Sign in</a>
+                                    </li>
+                                {% endif %}
                             </ul>
                         </div>
                     </li>

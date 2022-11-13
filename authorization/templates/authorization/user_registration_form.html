@@ -6,20 +6,20 @@
             <form id="reg-form" action="{% url 'registration' %}" method="post">
                 {% csrf_token %}
 
-                <h1 id="reg-form__header">Registration</h1>
+                <h1 id="reg-form__header">Sign up</h1>
                 <div id="reg-steps-wrapper">
                     
                     <fieldset id="reg-first-step">
-                        {{ reg_form.username.errors }}
-                        {{ reg_form.username }}
+                        {{ form.username.errors }}
+                        {{ form.username }}
 
-                        {{ reg_form.email.errors }}
-                        {{ reg_form.email }}
+                        {{ form.email.errors }}
+                        {{ form.email }}
 
-                        {{ reg_form.email_conf.errors }}
-                        {{ reg_form.email_conf }}
+                        {{ form.email_conf.errors }}
+                        {{ form.email_conf }}
 
-                        <div class="reg-step-menu">
+                        <div class="reg-step-menu" id="reg-step-menu--first-step">
                             <button id="reg-next-step__button" type="button" onclick="swipe_next_reg_step()">
                                 Next step
                             </button>
@@ -28,19 +28,19 @@
                     </fieldset>
 
                     <fieldset id="reg-second-step">
-                        {{ reg_form.password.errors }}
-                        {{ reg_form.password }}
+                        {{ form.password.errors }}
+                        {{ form.password }}
 
-                        {{ reg_form.password_conf.errors }}
-                        {{ reg_form.password_conf }}
+                        {{ form.password_conf.errors }}
+                        {{ form.password_conf }}
 
-                        <div class="reg-step-menu">
+                        <div class="reg-step-menu" id="reg-step-menu--second-step">
                             <button id="reg-previous-step__button" type="button" onclick="swipe_prev_reg_step()">
                                 Previous step
                             </button>
 
                             <button id="reg-submit-step__button">
-                                Register
+                                Sign up
                             </button>
                         </div>
 
