@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import AuthenticationForm
 
 from django.core.exceptions import ValidationError
 
@@ -17,6 +18,7 @@ class RegisterUserForm(forms.ModelForm):
 
     email_conf = forms.EmailField(required = True, label = '')
     password_conf = forms.CharField(required = True, widget = forms.PasswordInput(), label = '')
+    
 
     email_conf.widget.attrs.update({
         'placeholder': 'Repeat email',
@@ -83,8 +85,18 @@ class RegisterUserForm(forms.ModelForm):
 
     
     def save(self, commit = False):
+        '''
+        Sets password for accepted user,
+        saves it in database if "commit is True",
+        returns user.
+        '''
         user: CustomUser  = super().save(commit = False)
         user.set_password(self.cleaned_data['password'])
         if commit:
             user.save()
         return user
+
+
+class LoginUserForm(AuthenticationForm):
+    username = forms.CharField(label = '', widget=forms.EmailInput(attrs={'id': 'usr-mail', 'placeholder': 'Email'}))
+    password = forms.CharField(label='', widget=forms.PasswordInput(attrs={'id': 'usr-passw', 'placeholder': 'Password'}))
