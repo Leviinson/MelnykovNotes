@@ -13,7 +13,7 @@ def register_user(request):
     if reg_form.is_valid():
         reg_form.save(commit = True)
         return redirect('login')
-    return render(request, 'registration/user_registration_form.html', context = {'reg_form': reg_form, 'title': 'Sign up'})
+    return render(request, 'authorization/user_registration_form.html', context = {'reg_form': reg_form, 'title': 'Sign up'})
 
 def login_user(request):
     return HttpResponse('Authenticate user')
