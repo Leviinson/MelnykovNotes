@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'authorization.apps.AuthorizationConfig'
+    'authorization.apps.AuthorizationConfig',
+    'django_rename_app'
 ]
 
 MIDDLEWARE = [
@@ -105,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'registration.CustomUser'
+AUTH_USER_MODEL = 'authorization.CustomUser'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
