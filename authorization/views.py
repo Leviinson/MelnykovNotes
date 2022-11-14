@@ -36,9 +36,10 @@ class RegisterUser(CreateView, MenuMixin):
         return main_context | mixin_context
 
     def get(self, *args, **kwargs):
-        super().get(*args, **kwargs)
         if self.request.user.is_authenticated:
             return HttpResponseRedirect(reverse('userprofile:profile_page'))
+        return super().get(*args, **kwargs)
+        
         
     
     def form_valid(self, form: RegisterUserForm):
@@ -51,7 +52,7 @@ class RegisterUser(CreateView, MenuMixin):
     
 
 
-class LoginUser(MenuMixin, LoginView):
+class LoginUser(LoginView, MenuMixin):
     '''
     Authenticates user with database.
     '''
@@ -61,9 +62,13 @@ class LoginUser(MenuMixin, LoginView):
 
 
     def get(self, *args, **kwargs):
-        super().get(*args, **kwargs)
+        '''
+        Redirects the user to their profile if they are authenticated,
+        otherwise returns the standard behavior of the LoginView class's get method. 
+        '''
         if self.request.user.is_authenticated:
             return HttpResponseRedirect(reverse('userprofile:profile_page'))
+        return super().get(*args, **kwargs)
 
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
