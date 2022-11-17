@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'userprofile/css/style.css' %}" type="text/css">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <nav id="nav-menu">
+        <div id="nav-menu-logo-wrapper">
+            <img id="logo" src="{% static 'userprofile/images/nav-menu/logo.png' %}" alt="mill and text 'Notes'">
+        </div>
+
+        <ul id="nav-menu-options">
+            <li id="notifications" class="nav-menu-option">
+                <button id="notifications__button" class="nav-menu-option__button">
+                    <img id="notification-img" class="nav-menu-option__img" src="{% static 'userprofile/images/nav-menu/notifications.png' %}" alt="">
+                </button>
+            </li>
+
+            <li id="add-friend" class="nav-menu-option">
+                <button id="add-friend__button" class="nav-menu-option__button">
+                    <img id="add-friend-img" class="nav-menu-option__img"  src="{% static 'userprofile/images/nav-menu/add-friend.png' %}" alt="">
+                </button>
+            </li>
+
+            <li id="profile-menu" class="nav-menu-option">
+                <button id="profile-menu__button" class="nav-menu-option__button">
+                    <div id="profile-menu-back" class="nav-menu-option_img-wrapper">
+                        <!-- 
+                            Сюда делаем кастомный темплейт тег на определение авы для пользователя:
+                                либо берём переданную с контекста, либо формируем DIV с инициалами
+                                пользователя на мягко-салатовом фоне.
+                         -->
+                    </div>
+                </button>
+            </li>
+        </ul>
+    </nav>
+
+    {% block main %}
+    {% endblock main %}
+</body>
+</html>

@@ -1,0 +1,263 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+    background: url(../images/nav-menu/background.png);
+	font-family: 'Quicksand';
+	font-size: 33px;
+	color: #575757;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+#nav-menu {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	margin: 15px 35px 0px;
+}
+
+#nav-menu-options {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+}
+
+.nav-menu-option {
+	margin: 0 12px;
+}
+
+.nav-menu-option__button {
+	background: none;
+	border: none;
+}
+
+.nav-menu-option__button:hover {
+	cursor: pointer;
+}
+
+#profile-menu-back {
+	width: 80px;
+	height: 80px;
+	background-color: #d1ff56;
+	border-radius: 20px;
+	border-width: 2px;
+	border-style: groove;
+	border-color: #000;
+}
+
+#user-profile {
+	display: flex;
+	color: #000;
+	margin: 30px 275px;
+}
+
+#sidebar-wrapper {
+	margin-right: 10px;
+}
+
+.profile-block {
+	border-radius: 10px;
+}
+
+#profile-photo-wrapper {
+	width: 350px;
+	height: 350px;
+	margin-bottom: 10px;
+	background-color: #d1ff56;
+}
+
+#profile-description-wrapper,
+#profile-friendslist-wrapper,
+#profile-publicboard-wrapper {
+	background-color: #fff;
+}
+
+#profile-description-wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-bottom: 10px;
+	padding: 35px;
+
+	box-sizing: border-box;
+	font-size: 50px;
+}
+
+#usr-name {
+	margin-bottom: 30px;
+	text-decoration: underline;
+	text-decoration-thickness: 2px;
+}
+
+#usr-desc {
+	font-size: 35px;
+}
+
+#profile-friendslist-wrapper {
+	text-align: center;
+	padding: 20px;
+}
+
+#friendslist-title-wrapper {
+	border-bottom: 2px;
+	border-color: #000;
+	border-style: groove;
+}
+
+.friendlist-row {
+	margin: 16px 0;
+}
+
+.friend-wrapper {
+	display: flex;
+	align-items: center;
+}
+
+.friend-photo-wrapper {
+	background-color: #575757;
+
+	border-radius: 100%;
+	width: 50px;
+	height: 50px;
+	margin-right: 10px;
+}
+
+.friend-name {
+	font-size: 30px;
+}
+
+#publicboard-nav {
+	position: relative;
+}
+
+#publicboard-nav-options {
+	display: flex;
+	justify-content: space-between;
+	padding: 20px 33px 20px;
+}
+
+#publicboard-add-task {
+	display: flex;
+}
+
+#add-task__button {
+	margin: 0 20px;
+	padding: 0 20px;
+	display: inline-block;
+	border-radius: 10px;
+
+	background-color: #7f65f9;
+	color: #ffffff;
+	font-family: 'Quicksand';
+	font-size: 23px;
+	transition: background-color 0.3s;
+}
+
+#add-task__button:hover {
+	cursor: pointer;
+	background-color: #4c35a0;
+}
+
+#period-selection-menu-wrapper {
+	border-bottom: 2px;
+	border-color: #000;
+	border-style: groove;
+
+	padding: 5px;
+	cursor: pointer;
+}
+
+#period-selection-dropdownmenu-wrapper {
+	display: none;
+	flex-direction: column;
+	position: absolute;
+	top: 64px;
+	padding: 10px 0 0;
+	right: 33px;
+}
+
+#period-dropdownmenu__list {
+	padding: 5px;
+	border-radius: 10px;
+	background-color: #7f65f9;
+	border-width: 1px;
+	border-color: #000;
+	border-style: groove;
+}
+
+.period__button {
+	background: none;
+	border-style: none;
+	cursor: pointer;
+	margin: 5px;
+	font-family: 'Quicksand';
+	font-size: 20px;
+	color: #fff;
+	font-weight: 700;
+}
+
+#period-selection-wrapper:hover #period-selection-dropdownmenu-wrapper {
+	display: flex;
+}
+
+#task-blocks {
+	display: grid;
+	grid-template-columns: auto auto auto auto;
+	justify-items: center;
+	align-items: center;
+	width: 100%;
+}
+
+.task-block {
+	border-radius: 5px;
+	border-width: 1px;
+	border-color: #000;
+	border-style: groove;
+	width: 180px;
+	height: 180px;
+	background-color: #ffa320;
+	margin-bottom: 30px;
+}
+
+#fullscreen {
+	width: 180px;
+	height: 180px;
+	margin-bottom: 30px;
+}
