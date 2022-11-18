@@ -28,4 +28,5 @@ urlpatterns = [
     path('registration/', RegisterUser.as_view(), name='registration'),
     path('login/', LoginUser.as_view(), name='authentication'),
     path('', include('about.urls', namespace='about')),
-    path('news', include('news.urls', namespace = 'news'))]
+    path('news', include('news.urls', namespace = 'news')),
+    path('profile/', include('userprofile.urls', namespace = 'userprofile'))]
