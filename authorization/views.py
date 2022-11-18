@@ -17,7 +17,7 @@ from .forms import (
                    )
 from .utils import MenuMixin
 
-
+app_name = 'auth'
 class RegisterUser(CreateView, MenuMixin):
     '''
     Registers user in database.
