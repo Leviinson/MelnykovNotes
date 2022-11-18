@@ -6,7 +6,7 @@ from authorization.models import CustomUser
 class Tasks(models.Model):
     user_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(max_length = 30, default = 'My task')
-    description = models.CharField(max_length = 300)
+    description = models.CharField(max_length = 300, blank = True)
     date_created = models.DateTimeField(auto_now_add = True)
     date_modefied = models.DateTimeField(auto_now = True)
     appointment_date = models.DateTimeField()
