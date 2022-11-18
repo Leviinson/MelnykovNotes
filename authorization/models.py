@@ -45,14 +45,17 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_admin = models.BooleanField(default = False)
     is_staff = models.BooleanField(default = False)
     is_superuser = models.BooleanField(default = False)
+    picture = models.ImageField(upload_to='user_picture/%Y/%m/%d', default = '', blank = True, null = False)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ('username',)
+    REQUIRED_FIELDS = ('username', )
     objects = AccountManager()
 
     class Meta:
         verbose_name = 'user'
         verbose_name_plural = "user's"
-
+        ordering = ['date_joined']
+        get_latest_by = ['date_joined']
+        
     def __repr__(self):
         return f"[{self.email} -- {self.last_login}]"
