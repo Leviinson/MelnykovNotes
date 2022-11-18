@@ -6,4 +6,4 @@ from django.shortcuts import render
 
 # Create your views here.
 def func_stub_userprofile(request: HttpRequest):
-    return HttpResponse("User profile page")
+    return render(request, 'userprofile/profile.html', {})
