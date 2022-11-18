@@ -38,7 +38,7 @@ class AccountManager(BaseUserManager):
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique = True, verbose_name = 'User`s email')
     username = models.CharField(max_length = 30, unique = True, verbose_name = 'User`s nickname', db_index = True)
-    biography = models.CharField(max_length=300)
+    biography = models.CharField(max_length=300, blank = True)
     date_joined = models.DateTimeField(auto_now_add = True, verbose_name = 'Date joined')
     last_login = models.DateTimeField(auto_now = True, verbose_name = 'Last login')
     is_active = models.BooleanField(default = False)
