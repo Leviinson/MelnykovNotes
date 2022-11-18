@@ -24,9 +24,9 @@ from authorization.views import (
                                 )
 
 urlpatterns = [
-    path('admin/', admin.site.urls, name='admin'),
-    path('registration/', RegisterUser.as_view(), name='registration'),
-    path('login/', LoginUser.as_view(), name='authentication'),
-    path('', include('about.urls', namespace='about')),
-    path('news', include('news.urls', namespace = 'news')),
+    path('admin/', admin.site.urls, name = 'admin'),
+    path('registration/', RegisterUser.as_view(), name = 'registration'),
+    path('login/', LoginUser.as_view(), name = 'authentication'),
+    path('', include('about.urls', namespace='about'), name = 'about'),
+    path('news', include('news.urls', namespace = 'news'), name  = 'about'),
     path('profile/', include('userprofile.urls', namespace = 'userprofile'))]
