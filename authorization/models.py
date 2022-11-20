@@ -1,3 +1,4 @@
+from uuid import uuid4
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.core.exceptions import ValidationError
@@ -36,16 +37,18 @@ class AccountManager(BaseUserManager):
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
+    uuid = models.UUIDField(default = uuid4, unique = True)
     email = models.EmailField(unique = True, verbose_name = 'User`s email')
     username = models.CharField(max_length = 30, unique = True, verbose_name = 'User`s nickname', db_index = True)
     biography = models.CharField(max_length=300, blank = True)
+    picture = models.ImageField(upload_to='user_picture/%Y/%m/%d', default = '', blank = True, null = False)
     date_joined = models.DateTimeField(auto_now_add = True, verbose_name = 'Date joined')
     last_login = models.DateTimeField(auto_now = True, verbose_name = 'Last login')
     is_active = models.BooleanField(default = False)
     is_admin = models.BooleanField(default = False)
     is_staff = models.BooleanField(default = False)
     is_superuser = models.BooleanField(default = False)
-    picture = models.ImageField(upload_to='user_picture/%Y/%m/%d', default = '', blank = True, null = False)
+    friends = models.ManyToManyField("self", blank = True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ('username', )
