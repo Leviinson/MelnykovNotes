@@ -121,6 +121,13 @@ USE_I18N = True
 
 USE_TZ = True
 
+# REDIRECTS URLS
+# https://docs.djangoproject.com/en/4.1/ref/settings/#login-url
+# https://docs.djangoproject.com/en/4.1/ref/settings/#login-redirect-url
+
+LOGIN_URL = 'authentication'
+LOGIN_REDIRECT_URL = 'userprofile'
+
 # Media files (MEDIA_ROOT, MEDIA_URL)
 # https://docs.djangoproject.com/en/4.1/ref/settings/#media-root
 # https://docs.djangoproject.com/en/4.1/ref/settings/#media-url
