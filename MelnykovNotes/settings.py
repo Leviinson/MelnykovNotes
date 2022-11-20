@@ -126,7 +126,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/ref/settings/#login-redirect-url
 
 LOGIN_URL = 'authentication'
-LOGIN_REDIRECT_URL = 'userprofile'
 
 # Media files (MEDIA_ROOT, MEDIA_URL)
 # https://docs.djangoproject.com/en/4.1/ref/settings/#media-root

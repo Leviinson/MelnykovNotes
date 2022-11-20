@@ -1,7 +1,5 @@
-from django.urls import (
-                        path,
-                        include
-                        )
+from django.urls import (path,
+                         include)
 from .views import func_stub_userprofile
 app_name = 'userprofile'
 urlpatterns = [
