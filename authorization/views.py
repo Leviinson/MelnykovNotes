@@ -6,14 +6,17 @@ from django.urls import (reverse,
                          reverse_lazy)
 from django.http import (HttpRequest, HttpResponse,
                          HttpResponseRedirect)
+
+
 from typing import (Any,
                     Dict)
+
 
 from .forms import (RegisterUserForm,
                     LoginUserForm)
 from .utils import MenuMixin
 
-app_name = 'auth'
+
 class RegisterUser(CreateView, MenuMixin):
     '''
     Registers user in database.
@@ -63,7 +66,7 @@ class LoginUser(LoginView, MenuMixin):
         otherwise returns the standard behavior of the LoginView class's get method. 
         '''
         if self.request.user.is_authenticated:
-            return HttpResponseRedirect(reverse('profile:profile_page'))
+            return HttpResponseRedirect(reverse('profile:profile_page', args=[self.request.user.uuid, ]))
         return super().get(*args, **kwargs)
 
 
