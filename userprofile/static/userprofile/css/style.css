@@ -96,13 +96,6 @@ table {
 	border-radius: 10px;
 }
 
-#profile-photo-wrapper {
-	width: 350px;
-	height: 350px;
-	margin-bottom: 10px;
-	background-color: #d1ff56;
-}
-
 #profile-description-wrapper,
 #profile-friendslist-wrapper,
 #profile-publicboard-wrapper {
@@ -122,27 +115,43 @@ table {
 
 #usr-name {
 	margin-bottom: 30px;
-	text-decoration: underline;
-	text-decoration-thickness: 2px;
+	word-break: break-all;
 }
 
 #usr-desc {
 	font-size: 35px;
 }
 
+#no-desc {
+	color: #777777;
+	font-size: 30px;
+}
+
+#profile-photo-wrapper {
+	width: 350px;
+	height: 350px;
+	margin-bottom: 10px;
+	background-color: #d1ff56;
+}
+
 #profile-friendslist-wrapper {
 	text-align: center;
-	padding: 20px;
 }
 
 #friendslist-title-wrapper {
 	border-bottom: 2px;
 	border-color: #000;
 	border-style: groove;
+	padding: 10px;
+}
+
+#friendslist {
+	padding: 3% 0;
+	color: #777777;
 }
 
 .friendlist-row {
-	margin: 16px 0;
+	margin: 16px;
 }
 
 .friend-wrapper {
@@ -154,13 +163,25 @@ table {
 	background-color: #575757;
 
 	border-radius: 100%;
-	width: 50px;
-	height: 50px;
+	min-width: 50px;
+	min-height: 50px;
 	margin-right: 10px;
 }
 
-.friend-name {
+.friend-link {
+	text-decoration: none;
+	color: #000;
 	font-size: 30px;
+	word-break: break-all;
+}
+
+.friend-link:hover {
+	text-shadow: 0 0 7px #000;
+	color: #353535;
+}
+
+#no-friends__warn {
+	font-size: 25px;
 }
 
 #publicboard-nav {
@@ -253,7 +274,7 @@ table {
 	width: 180px;
 	height: 180px;
 	background-color: #ffa320;
-	margin-bottom: 30px;
+	margin: 30px;
 }
 
 #fullscreen {
