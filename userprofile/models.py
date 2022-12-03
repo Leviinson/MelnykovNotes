@@ -19,11 +19,11 @@ class Tasks(models.Model):
 
 
 class AllowedFriendsToTask(models.Model):
-    task_id = models.ForeignKey(Tasks, related_name = '', on_delete = models.CASCADE)
+    task_id = models.ForeignKey(Tasks, on_delete = models.CASCADE)
     friend_id = models.ForeignKey(get_user_model(), on_delete = models.CASCADE)
 
 
 class FriendsRequests(models.Model):
-    from_user = models.ForeignKey(get_user_model(), on_delete = models.CASCADE)
-    to_user = models.ForeignKey(get_user_model(), on_delete = models.CASCADE)
+    from_user = models.ForeignKey(get_user_model(), related_name = 'from_user', on_delete = models.CASCADE)
+    to_user = models.ForeignKey(get_user_model(), related_name = 'to_user', on_delete = models.CASCADE)
     relationship = models.SmallIntegerField(null = False, blank = False)
