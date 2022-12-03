@@ -20,110 +20,31 @@
                 </div>
     
                 <ul id="friendslist">
-                    <li class="friendlist-row">
-                        <div class="friend-wrapper">
-                            <div class="friend-photo-wrapper profile-block">
-                                <!-- 
-                                    Сюда делаем кастомный темплейт тег на определение авы для пользователя:
-                                        либо берём переданную с контекста, либо формируем DIV с инициалами
-                                        пользователя на мягко-салатовом фоне.
-                                -->
-                            </div>
-                            <p class="friend-name">
-                                Name Username
-                            </p>
-                            
-                        </div>
-                    </li>
-                    <li class="friendlist-row">
-                        <div class="friend-wrapper">
-                            <div class="friend-photo-wrapper profile-block">
-                                <!-- 
-                                    Сюда делаем кастомный темплейт тег на определение авы для пользователя:
-                                        либо берём переданную с контекста, либо формируем DIV с инициалами
-                                        пользователя на мягко-салатовом фоне.
-                                -->
-                            </div>
-                            <p class="friend-name">
-                                Name Username
-                            </p>
-                        </div>
-                    </li>
-                    <li class="friendlist-row">
-                        <div class="friend-wrapper">
-                            <div class="friend-photo-wrapper profile-block">
-                                <!-- 
-                                    Сюда делаем кастомный темплейт тег на определение авы для пользователя:
-                                        либо берём переданную с контекста, либо формируем DIV с инициалами
-                                        пользователя на мягко-салатовом фоне.
-                                -->
-                            </div>
-                            <p class="friend-name">
-                                Name Username
-                            </p>
-                            
-                        </div>
-                    </li>
-                    <li class="friendlist-row">
-                        <div class="friend-wrapper">
-                            <div class="friend-photo-wrapper profile-block">
-                                <!-- 
-                                    Сюда делаем кастомный темплейт тег на определение авы для пользователя:
-                                        либо берём переданную с контекста, либо формируем DIV с инициалами
-                                        пользователя на мягко-салатовом фоне.
-                                -->
-                            </div>
-                            <p class="friend-name">
-                                Name Username
-                            </p>
-                            
-                        </div>
-                    </li>
-                    <li class="friendlist-row">
-                        <div class="friend-wrapper">
-                            <div class="friend-photo-wrapper profile-block">
-                                <!-- 
-                                    Сюда делаем кастомный темплейт тег на определение авы для пользователя:
-                                        либо берём переданную с контекста, либо формируем DIV с инициалами
-                                        пользователя на мягко-салатовом фоне.
-                                -->
-                            </div>
-                            <p class="friend-name">
-                                Name Username
-                            </p>
-                            
-                        </div>
-                    </li>
-                    <li class="friendlist-row">
-                        <div class="friend-wrapper">
-                            <div class="friend-photo-wrapper profile-block">
-                                <!-- 
-                                    Сюда делаем кастомный темплейт тег на определение авы для пользователя:
-                                        либо берём переданную с контекста, либо формируем DIV с инициалами
-                                        пользователя на мягко-салатовом фоне.
-                                -->
-                            </div>
-                            <p class="friend-name">
-                                Name Username
-                            </p>
-                            
-                        </div>
-                    </li>
-                    <li class="friendlist-row">
-                        <div class="friend-wrapper">
-                            <div class="friend-photo-wrapper profile-block">
-                                <!-- 
-                                    Сюда делаем кастомный темплейт тег на определение авы для пользователя:
-                                        либо берём переданную с контекста, либо формируем DIV с инициалами
-                                        пользователя на мягко-салатовом фоне.
-                                -->
-                            </div>
-                            <p class="friend-name">
-                                Name Username
-                            </p>
-                            
-                        </div>
-                    </li>
+                    
+                    {% if friends %}
+                        {% for friend in friends %}
+                            <li class="friendlist-row">
+                                <div class="friend-wrapper">
+                                    <div class="friend-photo-wrapper">
+                                        <!-- 
+                                            Сюда делаем кастомный темплейт тег на определение авы для пользователя:
+                                                - либо берём переданную с контекста, либо формируем DIV с инициалами
+                                                - пользователя на мягко-салатовом фоне.
+                                        -->
+                                    </div>
+                                    
+                                    <a class="friend-link" href="{% url 'userprofile:profile_page' user_uuid=friend.uuid %}">
+                                        {{ friend.username|truncatechars:16 }}
+                                    </a>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <li id="no-friends__list-item">
+                            <b id="no-friends__warn">Here is no friends yet </b>
+                        </li>
+                    {% endif %}
+                    
                 </ul>
             </div>
         </div>
@@ -131,13 +52,15 @@
         <div id="content-wrapper">
             <div id="profile-description-wrapper" class="profile-block">
                 <h1 id="usr-name">
-                    Vitalii Melnykov
+                    {{ user.username }}
                 </h1>
     
                 <p id="usr-desc">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua 😃. <br>
-                    Quis ipsum suspendisse ultrices gravida. <br>
-                    Risus commodo viverra maecenas accumsan lacus vel facilisis 😍
+                    {% if user.biography %}
+                        {{ user.biography }}
+                    {% else %}
+                        <b id="no-desc">Here is no description yet.</b>
+                    {% endif %}
                 </p>
             </div>
     
@@ -151,10 +74,12 @@
                         </li>
     
                         <li id="publicboard-add-task" class="publicboard-nav-item">
-                            <button id="add-task__button">
-                                Add task
-                            </button>
-
+                            {% if owner %}
+                                <button id="add-task__button">
+                                    Add task
+                                </button>
+                            {% endif %}
+                            
                             <div id="period-selection-wrapper">
                                 <div id="period-selection-menu-wrapper">
                                     <img src="{% static 'userprofile/images/public-board/sort.png' %}" alt="two arrows to up and down">
@@ -165,19 +90,19 @@
                                     <ul id="period-dropdownmenu__list">
                                         <li class="period-option">
                                             <button class="period__button">
-                                                By week
+                                                Week
                                             </button>
                                         </li>
 
                                         <li class="period-option">
                                             <button class="period__button">
-                                                By month
+                                                Month
                                             </button> 
                                         </li>
 
                                         <li class="period-option">
                                             <button class="period__button">
-                                                By year
+                                                Year
                                             </button>
                                         </li>
 
