@@ -81,12 +81,12 @@ WSGI_APPLICATION = 'MelnykovNotes.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'melnykovnotes',
+        'NAME': os.getenv('DB_TITLE'),
         'HOST': 'localhost',
         'PORT': '5432',
         'USER': os.getenv('DB_USERNAME'),
         'PASSWORD': os.getenv('DB_PASSWORD')
-    }
+        }
 }
 
 
@@ -146,3 +146,10 @@ STATICFILES_DIRS = []
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# USER PROFILE PAGE SETTINGS
+SORT_TASKS_LD = 'ld'
+SORT_TASKS_LW = 'lw'
+SORT_TASKS_LM = 'lm'
+SORT_TASKS_LY = 'ly'
+SORT_TASKS_AT = 'at'
