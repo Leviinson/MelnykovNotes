@@ -1,6 +1,7 @@
 from django.contrib.auth import (login,
                                  logout)
 from django.contrib.auth.views import LoginView
+from django.conf import settings
 from django.views.generic import CreateView
 from django.urls import (reverse,
                          reverse_lazy)
@@ -14,10 +15,10 @@ from typing import (Any,
 
 from .forms import (RegisterUserForm,
                     LoginUserForm)
-from .utils import MenuMixin
+from .utils import AuthenticationMixin, MenuMixin
 
 
-class RegisterUser(CreateView, MenuMixin):
+class RegisterUser(MenuMixin, AuthenticationMixin, CreateView):
     '''
     Registers user in database.
     '''
@@ -25,12 +26,6 @@ class RegisterUser(CreateView, MenuMixin):
     success_url = reverse_lazy('authentication')
     template_name = 'authorization/user_registration_form.html'
     context_object_name = 'reg_form'
-
-
-    def get(self, *args, **kwargs) -> HttpResponse:
-        if self.request.user.is_authenticated:
-            return HttpResponseRedirect(reverse_lazy('profile:profile_page', args = [self.request.user.uuid, ]))
-        return super().get(*args, **kwargs)
 
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
@@ -52,22 +47,12 @@ class RegisterUser(CreateView, MenuMixin):
     
 
 
-class LoginUser(LoginView, MenuMixin):
+class LoginUser(MenuMixin, AuthenticationMixin, LoginView):
     '''
     Authenticates user with database.
     '''
     template_name = 'authorization/user_authentication_form.html'
     form_class = LoginUserForm
-
-
-    def get(self, *args, **kwargs) -> HttpResponse:
-        '''
-        Redirects the user to their profile if they are authenticated,
-        otherwise returns the standard behavior of the LoginView class's get method. 
-        '''
-        if self.request.user.is_authenticated:
-            return HttpResponseRedirect(reverse('profile:profile_page', args=[self.request.user.uuid, ]))
-        return super().get(*args, **kwargs)
 
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
@@ -81,7 +66,12 @@ class LoginUser(LoginView, MenuMixin):
     def form_valid(self, form: LoginUserForm) -> HttpResponseRedirect:
         """Security check complete. Log the user in."""
         login(self.request, form.get_user())
-        return HttpResponseRedirect(reverse_lazy('profile:profile_page', args = [self.request.user.uuid]))
+        return HttpResponseRedirect(
+            reverse_lazy(
+                'profile:profile_page_with_period',
+                args = [self.request.user.uuid, settings.SORT_TASKS_LD]
+            )
+        )
 
 
 def logout_view(request: HttpRequest):

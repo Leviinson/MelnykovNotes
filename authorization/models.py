@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 class AccountManager(BaseUserManager):
 
 
-    def create_user(self, email: str = None, username:str = None, password: str = None):
+    def create_user(self, email: str = '', username: str = '', password: str = ''):
         if not all(x for x in (email, username, password)):
             raise ValidationError('This field is required [!]')
         
@@ -20,7 +20,7 @@ class AccountManager(BaseUserManager):
         user.save()
         return user
 
-    def create_superuser(self, email: str = None, username:str = None, password: str = None):
+    def create_superuser(self, email: str = '', username: str = '', password: str = ''):
         if not all(x for x in (email, username, password)):
             raise ValidationError('This field is required [!]')
 
@@ -40,8 +40,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     uuid = models.UUIDField(default = uuid4, unique = True)
     email = models.EmailField(unique = True, verbose_name = 'User`s email')
     username = models.CharField(max_length = 30, unique = True, verbose_name = 'User`s nickname', db_index = True)
-    biography = models.CharField(max_length=300, blank = True)
-    picture = models.ImageField(upload_to='user_picture/%Y/%m/%d', default = '', blank = True, null = False)
+    biography = models.CharField(max_length = 300, blank = True)
+    picture = models.ImageField(upload_to = 'user_picture/%Y/%m/%d', default = '', blank = True, null = False)
     date_joined = models.DateTimeField(auto_now_add = True, verbose_name = 'Date joined')
     last_login = models.DateTimeField(auto_now = True, verbose_name = 'Last login')
     is_active = models.BooleanField(default = False)

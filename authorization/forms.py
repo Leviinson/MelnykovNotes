@@ -62,7 +62,9 @@ class RegisterUserForm(forms.ModelForm):
         passwords_and_emails = self._get_email_and_password_from_form(cleaned_data = cleaned_data)
 
         #equivalent for: '' in passwords_and_emails.values() or not Nont in password_and_emails.values()
-        if not any(x in ('', None) for x in passwords_and_emails.values()): 
+        if not any(
+            x in ('', None) for x in passwords_and_emails.values()
+        ): 
             
             if passwords_and_emails['email'] != passwords_and_emails['email_conf']:
                 self.add_error('email_conf', ValidationError('Emails weren`t similar'))
