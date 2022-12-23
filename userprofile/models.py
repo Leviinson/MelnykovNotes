@@ -4,7 +4,7 @@ from authorization.models import CustomUser
 
 # Create your models here.
 class Tasks(models.Model):
-    user_id = models.ForeignKey(CustomUser, on_delete = models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete = models.CASCADE)
     title = models.CharField(max_length = 30, default = 'My task')
     description = models.CharField(max_length = 300, null = True, blank = True)
     date_created = models.DateTimeField(auto_now_add = True)
@@ -19,8 +19,8 @@ class Tasks(models.Model):
 
 
 class AllowedFriendsToTask(models.Model):
-    task_id = models.ForeignKey(Tasks, on_delete = models.CASCADE)
-    friend_id = models.ForeignKey(get_user_model(), on_delete = models.CASCADE)
+    task = models.ForeignKey(Tasks, on_delete = models.CASCADE)
+    friend = models.ForeignKey(get_user_model(), on_delete = models.CASCADE)
 
 
 class FriendsRequests(models.Model):
