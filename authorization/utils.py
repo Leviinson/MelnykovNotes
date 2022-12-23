@@ -1,3 +1,8 @@
+from django.http import (HttpResponse,
+                         HttpResponseRedirect)
+from django.urls import reverse_lazy
+
+
 menu = [
     {
         "title": "About us",
@@ -24,3 +29,33 @@ class MenuMixin:
         navigation_menu = menu.copy()
         context['menu'] = navigation_menu
         return context
+
+class AuthenticationMixin:
+    """
+    Mixin for LoginUser and RegisterUser class-based views.
+
+    Attributes:
+    -----------
+        Doesn't have
+
+    Methods:
+    --------
+        get(request, *args, **kwargs) -> HttpResponse | HttpResponseRedirect
+            Checks if user is authenticated,
+            redirects to profile if it is.
+            Else delegates to superclass (CreateView or LoginView).
+    """
+    def get(self, request, *args, **kwargs) -> HttpResponse | HttpResponseRedirect:
+        """
+        Checks if user is authenticated,
+        redirects to profile if it is.
+        Else delegates to superclass (CreateView or LoginView).
+        """
+        if self.request.user.is_authenticated:
+            return HttpResponseRedirect(
+                reverse_lazy(
+                    'profile:profile_page',
+                    args = [self.request.user.uuid]
+                )
+            )
+        return super().get(request, *args, **kwargs)
