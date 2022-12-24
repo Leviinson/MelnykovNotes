@@ -33,7 +33,7 @@
                                         -->
                                     </div>
                                     
-                                    <a class="friend-link" href="{% url 'userprofile:profile_page_with_period' user_uuid=friend.uuid period=ld %}">
+                                    <a class="friend-link" href="{% url 'userprofile:profile_page_with_period' user_uuid=friend.uuid period=td %}">
                                         {{ friend.username|truncatechars:16 }}
                                     </a>
                                 </div>
