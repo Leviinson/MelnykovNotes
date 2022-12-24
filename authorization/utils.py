@@ -1,3 +1,10 @@
+"""
+Module was created to collect here Mixins.
+
+Classes:
+    MenuMixin
+    AuthenticationMixin
+"""
 from django.http import (HttpResponse,
                          HttpResponseRedirect)
 from django.urls import reverse_lazy

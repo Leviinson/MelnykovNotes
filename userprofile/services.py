@@ -1,4 +1,12 @@
+"""
+Module was created to collect into it
+business-logic from django-views.
 
+Because the creator adheres to the principle, that
+busines-logic must be in the MODEL layer, but not
+in the CONTROLLER layer, that is represented in Django
+by the name "View".
+"""
 import uuid
 from django.conf import settings
 from django.utils import timezone

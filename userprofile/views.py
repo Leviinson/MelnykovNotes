@@ -21,9 +21,16 @@ def show_userprofile(request: HttpRequest,
                      user_uuid: uuid.UUID,
                      period: PeriodsOfTasks = settings.SORT_TASKS_TD):
     '''
-    Returns the user's profile depending on
-    whether he is the owner or not returns "owner" variable
-    with boolean value.
+    Returns:
+    --------
+        the user's profile depending on whether
+        he is the owner or not.
+    
+    Parameters:
+    -----------
+        request: HttpRequest
+        user_uuid: uuid.UUID
+        period: PeriodsOfTasks
     '''
     if period not in (
         settings.SORT_TASKS_TD,
