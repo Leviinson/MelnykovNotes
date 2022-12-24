@@ -1,6 +1,7 @@
 from django.http import (HttpResponse,
                          HttpResponseRedirect)
 from django.urls import reverse_lazy
+from django.conf import settings
 
 
 menu = [
@@ -54,8 +55,9 @@ class AuthenticationMixin:
         if self.request.user.is_authenticated:
             return HttpResponseRedirect(
                 reverse_lazy(
-                    'profile:profile_page',
-                    args = [self.request.user.uuid]
+                    'profile:profile_page_with_period',
+                    args = [self.request.user.uuid,
+                            settings.SORT_TASKS_TD]
                 )
             )
         return super().get(request, *args, **kwargs)

@@ -69,7 +69,7 @@ class LoginUser(MenuMixin, AuthenticationMixin, LoginView):
         return HttpResponseRedirect(
             reverse_lazy(
                 'profile:profile_page_with_period',
-                args = [self.request.user.uuid, settings.SORT_TASKS_LD]
+                args = [self.request.user.uuid, settings.SORT_TASKS_TD]
             )
         )
 
