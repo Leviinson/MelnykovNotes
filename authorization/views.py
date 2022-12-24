@@ -20,7 +20,8 @@ from .utils import AuthenticationMixin, MenuMixin
 
 class RegisterUser(MenuMixin, AuthenticationMixin, CreateView):
     '''
-    Registers user in database.
+    Django view, that represents busines-logic
+    to register user in DataBase.
     '''
     form_class = RegisterUserForm
     success_url = reverse_lazy('authentication')
@@ -31,6 +32,9 @@ class RegisterUser(MenuMixin, AuthenticationMixin, CreateView):
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         '''
         Supplements context dictionary with "title" attribute.
+        Returns:
+        --------
+            supplemented contexts in common dict
         '''
         main_context = super().get_context_data(**kwargs)
         mixin_context = self.get_user_data(title = "Sign in")
@@ -41,6 +45,10 @@ class RegisterUser(MenuMixin, AuthenticationMixin, CreateView):
         '''
         Saves new user in database,
         redirects to authentication form.
+
+        Delegates method to:
+        -------------
+            CreateView
         '''
         form.save(commit = True)
         return super().form_valid(form = form)
@@ -49,7 +57,8 @@ class RegisterUser(MenuMixin, AuthenticationMixin, CreateView):
 
 class LoginUser(MenuMixin, AuthenticationMixin, LoginView):
     '''
-    Authenticates user with database.
+    Django view, that represents busines-logic
+    to authenticate and authorize user.
     '''
     template_name = 'authorization/user_authentication_form.html'
     form_class = LoginUserForm
@@ -58,13 +67,22 @@ class LoginUser(MenuMixin, AuthenticationMixin, LoginView):
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         '''
         Supplements context dictionary with "title" attribute.
+        Returns:
+        --------
+            supplemented contexts in common dict
         '''
         main_context = super().get_context_data(**kwargs)
         mixin_context = self.get_user_data(title = "Sign up")
         return main_context | mixin_context
 
     def form_valid(self, form: LoginUserForm) -> HttpResponseRedirect:
-        """Security check complete. Log the user in."""
+        """
+        Logs in user
+        
+        Redirects to:
+        -------------
+            User profile
+        """
         login(self.request, form.get_user())
         return HttpResponseRedirect(
             reverse_lazy(

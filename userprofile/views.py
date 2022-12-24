@@ -29,7 +29,9 @@ def show_userprofile(request: HttpRequest,
     Parameters:
     -----------
         request: HttpRequest
+            
         user_uuid: uuid.UUID
+
         period: PeriodsOfTasks
     '''
     if period not in (

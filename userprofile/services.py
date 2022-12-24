@@ -60,6 +60,7 @@ def _is_user_owner(request: HttpRequest, user_uuid: uuid.UUID) -> bool:
     Parameters:
     -----------
         request: HtppRequest
+        
         user_uuid: uuid.UUID
     """
     match request.user.uuid == user_uuid:  
@@ -78,9 +79,10 @@ def _get_user_tasks_by_period_from_db(user_profile: AbstractBaseUser, period: Pe
         user tasks by period from db: QuerySet[Tasks].
     
     Parameters:
-        user_profile: AbsctractBaseUser
-        period: settings.SORT_TASKS_XX variable
     -----------
+        user_profile: AbsctractBaseUser
+
+        period: settings.SORT_TASKS_XX variable
     """
     if period == PeriodsOfTasks.all_time:
         user_tasks_by_period = Tasks.objects.filter(user_id = user_profile.pk)
@@ -102,17 +104,23 @@ def get_user_tasks_by_period(request: HttpRequest,
                                                            bool,
                                                            ]:
     """
-    Returns context for view with next keys:
-    ----------------------------------------
-    :dict_key: 'user' -- CustomUser model
-    :dict_key: 'tasks' -- QuerySet[Tasks]
-    :dict_key: 'friends' -- Queryset[UserModel.friends]
-    :dict_key: 'owner' -- boolean value
+    Returns:
+    --------
+        context for view with next keys:
+            :dict_key: 'user' -- CustomUser model
+
+            :dict_key: 'tasks' -- QuerySet[Tasks]
+            
+            :dict_key: 'friends' -- Queryset[UserModel.friends]
+
+            :dict_key: 'owner' -- boolean value
 
     Parameters:
     -----------
         request: django.http.HttpRequest
+
         period: settings.SORT_TASKS_XX variable
+
         user_uuid: uuid.UUID 
     """
     users = get_user_model()
