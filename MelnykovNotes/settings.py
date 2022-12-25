@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 import os
 from pathlib import Path
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -148,8 +147,43 @@ STATICFILES_DIRS = []
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # USER PROFILE PAGE SETTINGS
-SORT_TASKS_TD = 'td'
-SORT_TASKS_TW = 'tw'
-SORT_TASKS_TM = 'tm'
-SORT_TASKS_TY = 'ty'
-SORT_TASKS_AT = 'at'
+
+# "abbreviature" key is using to represent value for parameter "period_abbreviature"
+# in "userprofile:profile_page" URLconf path.
+
+# "title" key is using to represent period title on userprofile page  
+
+# If you want to change 'all_time' key, so also
+# pass changes for those requirements:
+#     userprofile/services.py/_define_period_parameter_for_relativedelta (func)
+
+# You can change only "abbreviature", "all_time", and "title" key values,
+# key value "__parameter_title" is using to pass parameter for dateutil.relativedelta func,
+# so it can raise errors if you change it, but you can change "all_time" key values.
+TASKS_PERIODS = {
+    "this_day": {
+        "abbreviature": "td",
+        "title": "day",
+        "__parameter_title": "days"
+    },
+    "this_week": {
+        "abbreviature": "tw",
+        "title": "week",
+        "__parameter_title": "weeks"
+    },
+    "this_month": {
+        "abbreviature": "tm",
+        "title": "month",
+        "__parameter_title": "months"
+    }, 
+    "this_year": {
+        "abbreviature": "ty",
+        "title": "year",
+        "__parameter_title": "years"
+    },
+    "all_time": {
+        "abbreviature": "at",
+        "title": "all time",
+    },
+    "default_period": "this_day"
+}
