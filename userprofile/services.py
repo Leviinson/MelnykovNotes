@@ -7,7 +7,6 @@ busines-logic must be in the MODEL layer, but not
 in the CONTROLLER layer, that is represented in Django
 by the name "View".
 """
-import uuid
 from django.conf import settings
 from django.utils import timezone
 from django.contrib.auth import get_user_model
@@ -19,36 +18,10 @@ from django.db.models import (QuerySet,
 from django.contrib.auth.models import AbstractBaseUser
 # -----------------------------------------------------
 from dateutil.relativedelta import relativedelta
+import uuid
+from copy import copy
 
 from .models import Tasks
-from .typehints import PeriodsOfTasks
-
-
-def _define_period_for_time_delta(passed_period: PeriodsOfTasks) -> dict[str, int]:
-    """
-    Returns dict, that describes parameter for 'relativedelta' function.
-    
-    Parameters:
-    -----------
-        period: str
-            abbreviature passed from request,
-            all of this are described in SETTINGS module of
-            this project.
-    """
-    match passed_period:
-        case PeriodsOfTasks.this_day:
-            period = "days"
-          
-        case PeriodsOfTasks.this_week:
-            period = "weeks"
-           
-        case PeriodsOfTasks.this_month:
-            period = "months"
-
-        case PeriodsOfTasks.this_year:
-            period = "years"
-    
-    return {period: 1}
 
 
 def _is_user_owner(request: HttpRequest, user_uuid: uuid.UUID) -> bool:
@@ -60,7 +33,7 @@ def _is_user_owner(request: HttpRequest, user_uuid: uuid.UUID) -> bool:
     Parameters:
     -----------
         request: HtppRequest
-        
+
         user_uuid: uuid.UUID
     """
     match request.user.uuid == user_uuid:  
@@ -72,7 +45,73 @@ def _is_user_owner(request: HttpRequest, user_uuid: uuid.UUID) -> bool:
     return is_owner
 
 
-def _get_user_tasks_by_period_from_db(user_profile: AbstractBaseUser, period: PeriodsOfTasks) -> QuerySet:
+def _get_period_and_dict_key_from_settings(period_abbreviature: str) -> dict[str, dict]:
+    """
+    """
+    for period_key in settings.TASKS_PERIODS:
+        period_from_settings = settings.TASKS_PERIODS[period_key]
+        if period_from_settings['abbreviature'] == period_abbreviature:
+            return period_from_settings, period_key
+
+
+def _define_period_parameter_for_relativedelta(period_from_settings: str) -> dict[str, int]:
+    """
+    Returns dict, that describes parameter for 'relativedelta' function.
+    
+    Parameters:
+    -----------
+        period: str
+            abbreviature passed from request,
+            all of this are implemented in SETTINGS module of
+            this project.
+    """
+    assert "__parameter_title" in period_from_settings, \
+           "Here must be passed concrete period, not 'all time'."
+    period = period_from_settings['__parameter_title']
+    return {period: 1}
+
+
+def _get_selected_period_title(period_from_settings: str):
+    '''
+    Returns:
+    --------
+        selected period title, like: day, week, month etc.
+
+    Parameters:
+    -----------
+        period: str
+    '''
+    return period_from_settings['title']
+
+
+def _get_additional_periods_titles_and_abbreviatures(period_key_from_settings: str) -> list[str]:
+    """
+    Returns:
+    --------
+        additional periods titles list
+    
+    Parameters:
+    -----------
+        period: str
+    """
+    periods_from_settings = settings.TASKS_PERIODS.copy()
+    periods_from_settings.pop(period_key_from_settings)
+    titles = [settings.TASKS_PERIODS[period]['title'] for period in periods_from_settings]
+    abbreviatures = [settings.TASKS_PERIODS[period]['abbreviature'] for period in periods_from_settings]
+    return zip(titles, abbreviatures)
+
+
+def _get_selected_and_additional_periods(period_from_settings: str,
+                                         period_key_from_settings: str) -> tuple[str, list]:
+    """
+    """                         
+    selected_period_title = _get_selected_period_title(period_from_settings)
+    additional_periods_titles_and_abbreviatures = _get_additional_periods_titles_and_abbreviatures(period_key_from_settings)
+    return selected_period_title, additional_periods_titles_and_abbreviatures
+
+
+def _get_user_tasks_by_period_and_access_from_db(user: AbstractBaseUser,
+                                      period_from_settings: dict) -> QuerySet:
     """
     Returns:
     --------
@@ -80,29 +119,27 @@ def _get_user_tasks_by_period_from_db(user_profile: AbstractBaseUser, period: Pe
     
     Parameters:
     -----------
-        user_profile: AbsctractBaseUser
+        user: AbsctractBaseUser
 
         period: settings.SORT_TASKS_XX variable
     """
-    if period == PeriodsOfTasks.all_time:
-        user_tasks_by_period = Tasks.objects.filter(user_id = user_profile.pk)
+    if period_from_settings['abbreviature'] == settings.TASKS_PERIODS['all_time']['abbreviature']:
+        user_tasks_by_period = Tasks.objects.filter(user_id = user.pk)
     else:
-        period_for_time_delta = _define_period_for_time_delta(period)
+        period_parameter_for_relativedelta = _define_period_parameter_for_relativedelta(
+                                                    period_from_settings
+                                                )
         user_datetime_now = timezone.now()
-        last_date = timezone.now() + relativedelta(**period_for_time_delta)
-        user_tasks_by_period = Tasks.objects.filter(user_id = user_profile.pk,
+        last_date = timezone.now() + relativedelta(**period_parameter_for_relativedelta)
+        user_tasks_by_period = Tasks.objects.filter(user_id = user.pk,
                                                     date_created__range = (user_datetime_now,
                                                                            last_date))
-    return user_tasks_by_period
+    return user_tasks_by_period    
+    
 
-
-def get_user_tasks_by_period(request: HttpRequest,
-                             period: settings.SORT_TASKS_TD,
-                             user_uuid: uuid.UUID) -> dict[Model,
-                                                           QuerySet,
-                                                           QuerySet,
-                                                           bool,
-                                                           ]:
+def get_context_for_userprofile_page(request: HttpRequest,
+                                     period_abbreviature: str,
+                                     user_uuid: uuid.UUID):
     """
     Returns:
     --------
@@ -124,11 +161,21 @@ def get_user_tasks_by_period(request: HttpRequest,
         user_uuid: uuid.UUID 
     """
     users = get_user_model()
-    user_profile = users.objects.get(uuid = user_uuid)
+    user = users.objects.get(uuid = user_uuid)
     is_owner = _is_user_owner(request, user_uuid)
-    user_tasks_by_period = _get_user_tasks_by_period_from_db(user_profile = user_profile,
-                                                             period = period)
-    return {'user': user_profile,
+
+    period_from_settings, \
+    period_dict_key_from_settings = _get_period_and_dict_key_from_settings(period_abbreviature)
+
+    selected_period_title, \
+    additional_periods_titles_and_abbreviatures = _get_selected_and_additional_periods(period_from_settings,
+                                                                                       period_dict_key_from_settings)
+    user_tasks_by_period = _get_user_tasks_by_period_and_access_from_db(user,
+                                                                        period_from_settings)                                                
+    
+    return {'user': user,
             'tasks': user_tasks_by_period,
-            'friends': user_profile.friends.all(),
-            'owner': is_owner}
+            'friends': user.friends.all(),
+            'owner': is_owner,
+            'selected_period_title': selected_period_title,
+            'additional_periods_titles_and_abbreviatures': additional_periods_titles_and_abbreviatures}

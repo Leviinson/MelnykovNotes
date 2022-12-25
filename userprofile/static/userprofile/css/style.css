@@ -243,10 +243,8 @@ table {
 	border-style: groove;
 }
 
-.period__button {
-	background: none;
-	border-style: none;
-	cursor: pointer;
+.additional-period__lnk {
+	text-decoration: none;
 	margin: 5px;
 	font-family: 'Quicksand';
 	font-size: 20px;

@@ -1,25 +1,20 @@
 from django.http import (Http404,
                          HttpRequest,
-                         HttpResponseNotFound,
-                         HttpResponse)
-
-from django.urls import reverse_lazy
+                         HttpResponseNotFound)
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.utils import timezone
 from django.conf import settings
 
 import uuid
 
-from .services import get_user_tasks_by_period
-from .typehints import PeriodsOfTasks
+from .services import get_context_for_userprofile_page
 
 
 # Create your views here.
 @login_required
 def show_userprofile(request: HttpRequest,
                      user_uuid: uuid.UUID,
-                     period: PeriodsOfTasks = settings.SORT_TASKS_TD):
+                     period_abbreviature: str = settings.TASKS_PERIODS['this_day']['abbreviature']):
     '''
     Returns:
     --------
@@ -32,17 +27,13 @@ def show_userprofile(request: HttpRequest,
             
         user_uuid: uuid.UUID
 
-        period: PeriodsOfTasks
+        period: str
     '''
-    if period not in (
-        settings.SORT_TASKS_TD,
-        settings.SORT_TASKS_TW,
-        settings.SORT_TASKS_TM,
-        settings.SORT_TASKS_TY,
-        settings.SORT_TASKS_AT
+    if period_abbreviature not in (
+        settings.TASKS_PERIODS[period]['abbreviature'] for period
+        in settings.TASKS_PERIODS
     ): raise Http404("404 Error...")
-
-    context = get_user_tasks_by_period(request, period, user_uuid)
+    context = get_context_for_userprofile_page(request, period_abbreviature, user_uuid)
     return render(request, 'userprofile/profile.html', context = context)
 
 

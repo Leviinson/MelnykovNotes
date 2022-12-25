@@ -33,7 +33,7 @@
                                         -->
                                     </div>
                                     
-                                    <a class="friend-link" href="{% url 'userprofile:profile_page_with_period' user_uuid=friend.uuid period=td %}">
+                                    <a class="friend-link" href="{% url 'profile:profile_page_with_period' user_uuid=friend.uuid period_abbreviature=td %}">
                                         {{ friend.username|truncatechars:16 }}
                                     </a>
                                 </div>
@@ -83,34 +83,18 @@
                             <div id="period-selection-wrapper">
                                 <div id="period-selection-menu-wrapper">
                                     <img src="{% static 'userprofile/images/public-board/sort.png' %}" alt="two arrows to up and down">
-                                    <b>Day</b>
+                                    <b id="selected-period__btn">{{ selected_period_title|capfirst }}</b>
                                 </div>
     
                                 <div id="period-selection-dropdownmenu-wrapper">
                                     <ul id="period-dropdownmenu__list">
-                                        <li class="period-option">
-                                            <button class="period__button">
-                                                Week
-                                            </button>
-                                        </li>
-
-                                        <li class="period-option">
-                                            <button class="period__button">
-                                                Month
-                                            </button> 
-                                        </li>
-
-                                        <li class="period-option">
-                                            <button class="period__button">
-                                                Year
-                                            </button>
-                                        </li>
-
-                                        <li class="period-option">
-                                            <button class="period__button">
-                                                All
-                                            </button>
-                                        </li>
+                                        {% for additional_period_title, additional_period_abbreviature in additional_periods_titles_and_abbreviatures %}
+                                            <li class="period-option">
+                                                <a class="additional-period__lnk" href="{% url 'userprofile:profile_page_with_period' user_uuid=user.uuid period_abbreviature=additional_period_abbreviature %}">
+                                                    {{ additional_period_title|capfirst }}
+                                                </a>
+                                            </li>
+                                        {% endfor %}
                                     </ul>
                                 </div>
                             </div>
@@ -123,61 +107,58 @@
                         <li id="task-1" class="task-block">
                             <div class="task-wrapper">
                                 <!--
-                                    Тут будем получать информацию с сервера посредством GET-запроса,
-                                    которая будет предоставлять количество задач на тот или иной период.
+                                    Тут будем передавать информацию с сервера,
+                                    которая предоставляет количество задач на тот или иной период.
                                 -->
                             </div> 
                         </li>
                         <li id="task-2" class="task-block">
                             <div class="task-wrapper">
                                 <!--
-                                    Тут будем получать информацию с сервера посредством GET-запроса,
-                                    которая будет предоставлять количество задач на тот или иной период.
+                                    Тут будем передавать информацию с сервера,
+                                    которая предоставляет количество задач на тот или иной период.
                                 -->
                             </div> 
                         </li>
                         <li id="task-3" class="task-block">
                             <div class="task-wrapper">
                                 <!--
-                                    Тут будем получать информацию с сервера посредством GET-запроса,
-                                    которая будет предоставлять количество задач на тот или иной период.
+                                    Тут будем передавать информацию с сервера,
+                                    которая предоставляет количество задач на тот или иной период.
                                 -->
                             </div> 
                         </li>
                         <li id="task-4" class="task-block">
                             <div class="task-wrapper">
                                 <!--
-                                    Тут будем получать информацию с сервера посредством GET-запроса,
-                                    которая будет предоставлять количество задач на тот или иной период.
+                                    Тут будем передавать информацию с сервера,
+                                    которая предоставляет количество задач на тот или иной период.
                                 -->
                             </div>
                         </li>
                         <li id="task-5" class="task-block">
                             <div class="task-wrapper">
                                 <!--
-                                    Тут будем получать информацию с сервера посредством GET-запроса,
-                                    которая будет предоставлять количество задач на тот или иной период.
+                                    Тут будем передавать информацию с сервера,
+                                    которая предоставляет количество задач на тот или иной период.
                                 -->
                             </div>
                         </li>
                         <li id="task-6" class="task-block">
                             <div class="task-wrapper">
                                 <!--
-                                    Тут будем получать информацию с сервера посредством GET-запроса,
-                                    которая будет предоставлять количество задач на тот или иной период.
+                                    Тут будем передавать информацию с сервера,
+                                    которая предоставляет количество задач на тот или иной период.
                                 -->
                             </div>
                         </li>
                         <li id="task-7" class="task-block">
                             <div class="task-wrapper">
                                 <!--
-                                    Тут будем получать информацию с сервера посредством GET-запроса,
-                                    которая будет предоставлять количество задач на тот или иной период.
+                                    Тут будем передавать информацию с сервера,
+                                    которая предоставляет количество задач на тот или иной период.
                                 -->
-                            </div> <!--
-                                Тут будем получать информацию с сервера посредством GET-запроса,
-                                которая будет предоставлять количество задач на тот или иной период.
-                            -->
+                            </div> 
                         </li>
                         <li id="fullscreen">
                             <img src="{% static 'userprofile/images/public-board/fullscreen.png' %}" alt="">
