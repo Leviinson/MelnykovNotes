@@ -8,10 +8,8 @@ from django.urls import (reverse,
 from django.http import (HttpRequest, HttpResponse,
                          HttpResponseRedirect)
 
-
 from typing import (Any,
                     Dict)
-
 
 from .forms import (RegisterUserForm,
                     LoginUserForm)
@@ -84,10 +82,12 @@ class LoginUser(MenuMixin, AuthenticationMixin, LoginView):
             User profile
         """
         login(self.request, form.get_user())
+        default_period = settings.TASKS_PERIOD['default_period']
         return HttpResponseRedirect(
             reverse_lazy(
                 'profile:profile_page_with_period',
-                args = [self.request.user.uuid, settings.SORT_TASKS_TD]
+                args = [self.request.user.uuid,
+                        settings.TASKS_PERIODS[default_period]['abbreviature']]
             )
         )
 

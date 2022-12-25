@@ -60,11 +60,12 @@ class AuthenticationMixin:
         Else delegates to superclass (CreateView or LoginView).
         """
         if self.request.user.is_authenticated:
+            default_period = settings.TASKS_PERIOD['default_period']
             return HttpResponseRedirect(
                 reverse_lazy(
                     'profile:profile_page_with_period',
                     args = [self.request.user.uuid,
-                            settings.SORT_TASKS_TD]
+                            settings.TASKS_PERIODS[default_period]['abbreviature']]
                 )
             )
         return super().get(request, *args, **kwargs)
