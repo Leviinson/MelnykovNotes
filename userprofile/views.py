@@ -13,8 +13,8 @@ from .services import get_context_for_userprofile_page
 # Create your views here.
 @login_required
 def show_userprofile(request: HttpRequest,
-                     user_uuid: uuid.UUID,
-                     period_abbreviature: str = settings.TASKS_PERIODS['this_day']['abbreviature']):
+                     requested_user_uuid: str,
+                     period_abbreviature: str = settings.DEFAULT_PERIOD['abbreviature']):
     '''
     Returns:
     --------
@@ -30,10 +30,9 @@ def show_userprofile(request: HttpRequest,
         period: str
     '''
     if period_abbreviature not in (
-        settings.TASKS_PERIODS[period]['abbreviature'] for period
-        in settings.TASKS_PERIODS
+        settings.DICT_OF_PERIODS.keys()
     ): raise Http404("404 Error...")
-    context = get_context_for_userprofile_page(request, period_abbreviature, user_uuid)
+    context = get_context_for_userprofile_page(request, period_abbreviature, requested_user_uuid)
     return render(request, 'userprofile/profile.html', context = context)
 
 
