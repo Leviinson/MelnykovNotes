@@ -102,6 +102,10 @@ table {
 	background-color: #fff;
 }
 
+#profile-publicboard-wrapper {
+	width: 970px;
+}
+
 #profile-description-wrapper {
 	display: flex;
 	flex-direction: column;
@@ -259,12 +263,15 @@ table {
 #task-blocks {
 	display: grid;
 	grid-template-columns: auto auto auto auto;
-	justify-items: center;
-	align-items: center;
+	justify-content: center;
+	align-content: center;
 	width: 100%;
 }
 
 .task-block {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	border-radius: 5px;
 	border-width: 1px;
 	border-color: #000;
@@ -273,10 +280,15 @@ table {
 	height: 180px;
 	background-color: #ffa320;
 	margin: 30px;
+	overflow: hidden;
+}
+
+.task-wrapper {
+	word-break: break-all;
 }
 
 #fullscreen {
 	width: 180px;
 	height: 180px;
-	margin-bottom: 30px;
+	margin: 30px;
 }
