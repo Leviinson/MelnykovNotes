@@ -33,7 +33,7 @@
                                         -->
                                     </div>
                                     
-                                    <a class="friend-link" href="{% url 'profile:profile_page_with_period' user_uuid=friend.uuid period_abbreviature=td %}">
+                                    <a class="friend-link" href="{% url 'profile:profile_page_with_period' requested_user_uuid=friend.uuid period_abbreviature=td %}">
                                         {{ friend.username|truncatechars:16 }}
                                     </a>
                                 </div>
@@ -90,7 +90,7 @@
                                     <ul id="period-dropdownmenu__list">
                                         {% for additional_period_title, additional_period_abbreviature in additional_periods_titles_and_abbreviatures %}
                                             <li class="period-option">
-                                                <a class="additional-period__lnk" href="{% url 'userprofile:profile_page_with_period' user_uuid=user.uuid period_abbreviature=additional_period_abbreviature %}">
+                                                <a class="additional-period__lnk" href="{% url 'userprofile:profile_page_with_period' requested_user_uuid=user.uuid period_abbreviature=additional_period_abbreviature %}">
                                                     {{ additional_period_title|capfirst }}
                                                 </a>
                                             </li>
@@ -104,71 +104,25 @@
     
                 <div id="task-blocks-wrapper">
                     <ul id="task-blocks">
-                        <li id="task-1" class="task-block">
-                            <div class="task-wrapper">
-                                <!--
-                                    Тут будем передавать информацию с сервера,
-                                    которая предоставляет количество задач на тот или иной период.
-                                -->
-                            </div> 
-                        </li>
-                        <li id="task-2" class="task-block">
-                            <div class="task-wrapper">
-                                <!--
-                                    Тут будем передавать информацию с сервера,
-                                    которая предоставляет количество задач на тот или иной период.
-                                -->
-                            </div> 
-                        </li>
-                        <li id="task-3" class="task-block">
-                            <div class="task-wrapper">
-                                <!--
-                                    Тут будем передавать информацию с сервера,
-                                    которая предоставляет количество задач на тот или иной период.
-                                -->
-                            </div> 
-                        </li>
-                        <li id="task-4" class="task-block">
-                            <div class="task-wrapper">
-                                <!--
-                                    Тут будем передавать информацию с сервера,
-                                    которая предоставляет количество задач на тот или иной период.
-                                -->
-                            </div>
-                        </li>
-                        <li id="task-5" class="task-block">
-                            <div class="task-wrapper">
-                                <!--
-                                    Тут будем передавать информацию с сервера,
-                                    которая предоставляет количество задач на тот или иной период.
-                                -->
-                            </div>
-                        </li>
-                        <li id="task-6" class="task-block">
-                            <div class="task-wrapper">
-                                <!--
-                                    Тут будем передавать информацию с сервера,
-                                    которая предоставляет количество задач на тот или иной период.
-                                -->
-                            </div>
-                        </li>
-                        <li id="task-7" class="task-block">
-                            <div class="task-wrapper">
-                                <!--
-                                    Тут будем передавать информацию с сервера,
-                                    которая предоставляет количество задач на тот или иной период.
-                                -->
-                            </div> 
-                        </li>
-                        <li id="fullscreen">
-                            <img src="{% static 'userprofile/images/public-board/fullscreen.png' %}" alt="">
-                        </li>
+                        {% if tasks %}
+                            {% for task in tasks|slice:":7" %}
+                                <li id="task-{{ forloop.counter }}" class="task-block">
+                                    <div class="task-wrapper">
+                                        {{ task.title }}
+                                    </div> 
+                                </li>
+                            {% endfor %}
+                            <li id="fullscreen">
+                                <img src="{% static 'userprofile/images/public-board/fullscreen.png' %}" alt="fullscreen mode button">
+                            </li>
+                        {% else %}
+                            <li id="splash-screen">
+                                <img id="splash-screen-png" src="{% static 'userprofile/images/public-board/no-tasks.png' %}" alt="resting worker">
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
         </div>
-        
-
-        
     </main>
 {% endblock %}
