@@ -82,12 +82,11 @@ class LoginUser(MenuMixin, AuthenticationMixin, LoginView):
             User profile
         """
         login(self.request, form.get_user())
-        default_period = settings.TASKS_PERIOD['default_period']
         return HttpResponseRedirect(
             reverse_lazy(
-                'profile:profile_page_with_period',
+                'userprofile:profile_page_with_period',
                 args = [self.request.user.uuid,
-                        settings.TASKS_PERIODS[default_period]['abbreviature']]
+                        settings.DEFAULT_PERIOD['abbreviature']]
             )
         )
 
