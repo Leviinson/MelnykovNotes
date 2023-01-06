@@ -160,30 +160,35 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # You can change only "abbreviature", "all_time", and "title" key values,
 # key value "__parameter_title" is using to pass parameter for dateutil.relativedelta func,
 # so it can raise errors if you change it, but you can change "all_time" key values.
-TASKS_PERIODS = {
-    "this_day": {
-        "abbreviature": "td",
-        "title": "day",
-        "__parameter_title": "days"
-    },
-    "this_week": {
+THIS_DAY_PERIOD = {
+    "abbreviature": "td",
+    "title": "day",
+    "__parameter_title": "days"
+}
+THIS_WEEK_PERIOD = {
         "abbreviature": "tw",
         "title": "week",
         "__parameter_title": "weeks"
-    },
-    "this_month": {
+    }
+THIS_MONTH_PERIOD = {
         "abbreviature": "tm",
         "title": "month",
         "__parameter_title": "months"
-    }, 
-    "this_year": {
+    }
+THIS_YEAR_PERIOD = {
         "abbreviature": "ty",
         "title": "year",
         "__parameter_title": "years"
-    },
-    "all_time": {
+    }
+ALL_TIME_PERIOD = {
         "abbreviature": "at",
         "title": "all time",
-    },
-    "default_period": "this_day"
+    }
+DICT_OF_PERIODS = {
+    THIS_DAY_PERIOD['abbreviature']: THIS_DAY_PERIOD,
+    THIS_WEEK_PERIOD['abbreviature']: THIS_WEEK_PERIOD,
+    THIS_MONTH_PERIOD['abbreviature']: THIS_MONTH_PERIOD,
+    THIS_YEAR_PERIOD['abbreviature']: THIS_YEAR_PERIOD,
+    ALL_TIME_PERIOD['abbreviature']: ALL_TIME_PERIOD
 }
+DEFAULT_PERIOD = THIS_DAY_PERIOD
