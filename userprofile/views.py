@@ -14,7 +14,7 @@ from .services import get_context_for_userprofile_page
 @login_required
 def show_userprofile(request: HttpRequest,
                      requested_user_uuid: uuid.UUID,
-                     period_abbreviature: str = settings.DEFAULT_PERIOD['abbreviature']):
+                     period_abbreviature: str = settings.DEFAULT_PERIOD.abbreviature):
     '''
     Returns:
     --------
@@ -29,7 +29,6 @@ def show_userprofile(request: HttpRequest,
 
         period_abbreviature: str
     '''
-    print(type(requested_user_uuid))
     if period_abbreviature not in (
         settings.DICT_OF_PERIODS.keys()
     ): raise Http404("404 Error...")
