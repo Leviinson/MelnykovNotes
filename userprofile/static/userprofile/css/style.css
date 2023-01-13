@@ -287,6 +287,8 @@ table {
 	word-break: break-all;
 	text-align: center;
 	line-height: 40px;
+	white-space: nowrap;
+	font-size: smaller;
 }
 
 #fullscreen {

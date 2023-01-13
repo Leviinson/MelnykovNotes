@@ -64,7 +64,7 @@ class AuthenticationMixin:
                 reverse_lazy(
                     'profile:profile_page_with_period',
                     args = [self.request.user.uuid,
-                            settings.DEFAULT_PERIOD['abbreviature']]
+                            settings.DEFAULT_PERIOD.abbreviature]
                 )
             )
         return super().get(request, *args, **kwargs)

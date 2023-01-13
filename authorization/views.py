@@ -86,7 +86,7 @@ class LoginUser(MenuMixin, AuthenticationMixin, LoginView):
             reverse_lazy(
                 'userprofile:profile_page_with_period',
                 args = [self.request.user.uuid,
-                        settings.DEFAULT_PERIOD['abbreviature']]
+                        settings.DEFAULT_PERIOD.abbreviature]
             )
         )
 
