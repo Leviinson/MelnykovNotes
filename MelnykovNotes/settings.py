@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure--wn*owr84kqkg_bd83-_vjo5j^f9ohdgsq7(tp0_0d(s@87@y)
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+INTERNAL_IPS = ['127.0.0.1']
 
 
 # Application definition
@@ -40,7 +41,8 @@ INSTALLED_APPS = [
     'authorization.apps.AuthorizationConfig',
     'about.apps.AboutConfig',
     'news.apps.NewsConfig',
-    'userprofile.apps.UserprofileConfig'
+    'userprofile.apps.UserprofileConfig',
+    'debug_toolbar'
 ]
 
 MIDDLEWARE = [
@@ -51,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware'
 ]
 
 ROOT_URLCONF = 'MelnykovNotes.urls'
@@ -182,7 +185,7 @@ THIS_YEAR_PERIOD = {
     }
 ALL_TIME_PERIOD = {
         "abbreviature": "at",
-        "title": "all time",
+        "title": "all time"
     }
 DICT_OF_PERIODS = {
     THIS_DAY_PERIOD['abbreviature']: THIS_DAY_PERIOD,

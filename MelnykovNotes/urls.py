@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import (path,
                         include)
+from django.conf import settings
 
                         
 from authorization.views import (RegisterUser,
@@ -29,4 +30,9 @@ urlpatterns = [
     path('', include('about.urls', namespace = 'about')),
     path('news/', include('news.urls', namespace = 'news')),
     path('profile/', include('userprofile.urls', namespace = 'profile')),
-    path('logout/', logout_view, name = 'logout')]
+    path('logout/', logout_view, name = 'logout'),
+    ]
+    
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns.append(path('__debug__/', include(debug_toolbar.urls)))
