@@ -11,6 +11,9 @@ from django.conf import settings
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
+from django.db.models import (Count,
+                              DateField)
+from django.db.models.functions import Trunc
 
 # for type hints
 from django.http import HttpRequest
@@ -21,7 +24,9 @@ from dateutil.relativedelta import relativedelta
 import uuid
 
 
-def _get_requested_user_profiles(requested_user_uuid: uuid.UUID) -> tuple:
+def _get_requested_user_profiles(sender_user: HttpRequest,
+                                 requested_user_uuid: uuid.UUID,
+                                 is_sender_user_owner: bool) -> tuple:
     """
     Returns:
     --------
@@ -31,12 +36,14 @@ def _get_requested_user_profiles(requested_user_uuid: uuid.UUID) -> tuple:
     -----------
         requested_user_uuid: uuid.UUID
     """
+    if is_sender_user_owner:
+        return sender_user
     requested_user = get_object_or_404(get_user_model(), uuid = requested_user_uuid)
     return requested_user
 
 
 def _is_sender_user_owner(sender_user_uuid: uuid.UUID,
-                          requested_user_uuid: str) -> bool:
+                          requested_user_uuid: uuid.UUID) -> bool:
     """
     Returns:
     --------
@@ -52,7 +59,7 @@ def _is_sender_user_owner(sender_user_uuid: uuid.UUID,
     return False
 
 
-def _define_period_parameter_for_relativedelta(period_entity_from_settings: str) -> dict[str, int]:
+def _define_period_parameter_for_relativedelta(period_entity_from_settings: dict) -> dict[str, int]:
     """
     Returns:
     --------
@@ -106,8 +113,9 @@ def _calculate_range_for_tasks(period_parameter_for_relativedelta: dict):
     return requested_user_datetime_now, last_date
 
 
-def _select_requested_user_tasks_from_db_wo_period(requested_user,
-                                                   sender_user):
+def _select_requested_user_tasks_from_db_wo_period(requested_user: AbstractBaseUser,
+                                                   sender_user: AbstractBaseUser,
+                                                   is_sender_user_owner: bool):
     """
     Returns:
     --------
@@ -117,16 +125,21 @@ def _select_requested_user_tasks_from_db_wo_period(requested_user,
     -----------
         requested_user: AbstractBaseUser
         sender_user: AbstractBaseUser
+        is_sender_user_owner: bool
     """
     public_tasks = requested_user.tasks_set.filter(is_private = False).order_by('date_created')
-    private_tasks = requested_user.tasks_set.filter(pk__in = 
-                            sender_user.admitted_tasks.values_list('task__pk', flat = True)).order_by('date_created')
+    if is_sender_user_owner:
+        requested_user.tasks_set.filter(is_private = True).order_by('date_created')
+    else:
+        private_tasks = requested_user.tasks_set.filter(pk__in = 
+                                                        sender_user.admitted_tasks.values_list('task__pk', flat = True)).order_by('date_created')
     return public_tasks | private_tasks
 
 
 def _select_requested_user_tasks_from_db_by_period(requested_user: AbstractBaseUser,
                                                    sender_user: AbstractBaseUser,
-                                                   period_entity_from_settings: dict):
+                                                   period_entity_from_settings: dict,
+                                                   is_sender_user_owner: bool):
     """
     Returns:
     --------
@@ -137,6 +150,7 @@ def _select_requested_user_tasks_from_db_by_period(requested_user: AbstractBaseU
         requested_user: AbstractBaseUser
         sender_user: AbstractBaseUser
         period_entity_from_settings: dict
+        is_sender_user_owner: bool
     """
     period_parameter_for_relativedelta = _define_period_parameter_for_relativedelta(
                                                     period_entity_from_settings
@@ -144,20 +158,27 @@ def _select_requested_user_tasks_from_db_by_period(requested_user: AbstractBaseU
     sender_user_datetime_now, last_date = _calculate_range_for_tasks(period_parameter_for_relativedelta)
     public_tasks = requested_user.tasks_set.filter(is_private = False,
                                                    date_created__range = (sender_user_datetime_now,
-                                                                               last_date)).order_by('date_created')
-    if requested_user.uuid != sender_user.uuid:
+                                                                          last_date)).order_by('date_created')
+    if is_sender_user_owner:
+        private_tasks = requested_user.tasks_set.filter(date_created__range = (sender_user_datetime_now,
+                                                                               last_date),
+                                                        is_private = True).order_by('date_created')
+    else:
         private_tasks = requested_user.tasks_set.filter(pk__in = sender_user.admitted_tasks.values_list('task__pk', flat = True),
                                                         date_created__range = (sender_user_datetime_now,
                                                                                last_date)).order_by('date_created')
-    else:
-        private_tasks = requested_user.tasks_set.filter(date_created__range = (sender_user_datetime_now,
-                                                                               last_date)).order_by('date_created')
-    return public_tasks | private_tasks
+    accessed_tasks = public_tasks | private_tasks
+    accessed_tasks_grouped_by_period = accessed_tasks.annotate(date = Trunc('date_created',
+                                                                            'month',
+                                                                            output_field = DateField())).values('date')
+    number_of_accessed_tasks_grouped_by_period = accessed_tasks_grouped_by_period.annotate(number = Count('date')).order_by('date')
+    return number_of_accessed_tasks_grouped_by_period
 
 
 def _get_requested_user_tasks_by_period_and_access_from_db(requested_user: AbstractBaseUser,
                                                            sender_user: AbstractBaseUser,
-                                                           period_entity_from_settings: dict) -> QuerySet:
+                                                           period_entity_from_settings: dict,
+                                                           is_sender_user_owner: bool) -> QuerySet:
     """
     Returns:
     --------
@@ -168,20 +189,23 @@ def _get_requested_user_tasks_by_period_and_access_from_db(requested_user: Abstr
         requested_user: AbsctractBaseUser
         sender_user: AbstractBaseUser
         period_entity_from_settings: dict -- settings.XXX_PERIOD variable
+        is_sender_user_owner: bool
     """
     if period_entity_from_settings['abbreviature'] == settings.ALL_TIME_PERIOD['abbreviature']:
         requested_user_tasks_by_period = _select_requested_user_tasks_from_db_wo_period(requested_user,
-                                                                                        sender_user)
+                                                                                        sender_user,
+                                                                                        is_sender_user_owner)
     else:
         requested_user_tasks_by_period = _select_requested_user_tasks_from_db_by_period(requested_user,
                                                                                         sender_user,
-                                                                                        period_entity_from_settings)
+                                                                                        period_entity_from_settings,
+                                                                                        is_sender_user_owner)
     return requested_user_tasks_by_period
 
 
 def get_context_for_userprofile_page(request: HttpRequest,
                                      period_abbreviature: str,
-                                     requested_user_uuid: str):
+                                     requested_user_uuid: uuid.UUID):
     """
     Returns:
     --------
@@ -201,17 +225,19 @@ def get_context_for_userprofile_page(request: HttpRequest,
 
         requested_user_uuid: uuid.UUID
     """
-    requested_user = _get_requested_user_profiles(requested_user_uuid)
-    is_sender_user_owner = _is_sender_user_owner(request.user.uuid, requested_user_uuid)
+    sender_user = request.user
+    is_sender_user_owner = _is_sender_user_owner(sender_user.uuid, requested_user_uuid)
+    requested_user = _get_requested_user_profiles(sender_user, requested_user_uuid, is_sender_user_owner)
     period_entity_from_settings = settings.DICT_OF_PERIODS[period_abbreviature]
     selected_period_title = period_entity_from_settings['title']
     add_periods_titles_and_abbreviatures = _get_add_periods_titles_and_abbreviatures(period_abbreviature)
     requested_user_tasks_by_period_and_access = _get_requested_user_tasks_by_period_and_access_from_db(requested_user,
-                                                                                                       request.user,
-                                                                                                       period_entity_from_settings)                                                
+                                                                                                       sender_user,
+                                                                                                       period_entity_from_settings,
+                                                                                                       is_sender_user_owner)                                                
     return {'user': requested_user,
-            'tasks': requested_user_tasks_by_period_and_access,
+            'tasks_by_period': requested_user_tasks_by_period_and_access,
             'friends': requested_user.friends.all(),
-            'owner': is_sender_user_owner,
+            'is_owner': is_sender_user_owner,
             'selected_period_title': selected_period_title,
             'additional_periods_titles_and_abbreviatures': add_periods_titles_and_abbreviatures}

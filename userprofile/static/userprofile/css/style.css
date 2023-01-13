@@ -285,6 +285,8 @@ table {
 
 .task-wrapper {
 	word-break: break-all;
+	text-align: center;
+	line-height: 40px;
 }
 
 #fullscreen {

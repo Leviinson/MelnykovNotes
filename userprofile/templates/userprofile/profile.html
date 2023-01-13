@@ -70,11 +70,11 @@
                 <nav id="publicboard-nav">
                     <ul id="publicboard-nav-options">
                         <li id="publicboard-title" class="publicboard-nav-item">
-                            <h2>My tasks on this day</h2>
+                            <h2>My tasks for the {{ selected_period_title }}</h2>
                         </li>
     
                         <li id="publicboard-add-task" class="publicboard-nav-item">
-                            {% if owner %}
+                            {% if is_owner %}
                                 <button id="add-task__button">
                                     Add task
                                 </button>
@@ -85,7 +85,7 @@
                                     <img src="{% static 'userprofile/images/public-board/sort.png' %}" alt="two arrows to up and down">
                                     <b id="selected-period__btn">{{ selected_period_title|capfirst }}</b>
                                 </div>
-    
+                                
                                 <div id="period-selection-dropdownmenu-wrapper">
                                     <ul id="period-dropdownmenu__list">
                                         {% for additional_period_title, additional_period_abbreviature in additional_periods_titles_and_abbreviatures %}
@@ -104,11 +104,12 @@
     
                 <div id="task-blocks-wrapper">
                     <ul id="task-blocks">
-                        {% if tasks %}
-                            {% for task in tasks|slice:":7" %}
+                        {% if tasks_by_period %}
+                            {% for period in tasks_by_period|slice:":7" %}
                                 <li id="task-{{ forloop.counter }}" class="task-block">
                                     <div class="task-wrapper">
-                                        {{ task.title }}
+                                        {{ period.date|date:"F" }} <br>
+                                        {{ period.number }}
                                     </div> 
                                 </li>
                             {% endfor %}
