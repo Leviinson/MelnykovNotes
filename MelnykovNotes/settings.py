@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 import os
 from pathlib import Path
+from .typehints import Period
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -161,37 +162,42 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #     userprofile/services.py/_define_period_parameter_for_relativedelta (func)
 
 # You can change only "abbreviature", "all_time", and "title" key values,
-# key value "__parameter_title" is using to pass parameter for dateutil.relativedelta func,
+# key value "relativedelta_parameter_title" is using to pass parameter for dateutil.relativedelta func,
 # so it can raise errors if you change it, but you can change "all_time" key values.
-THIS_DAY_PERIOD = {
-    "abbreviature": "td",
-    "title": "day",
-    "__parameter_title": "days"
-}
-THIS_WEEK_PERIOD = {
-        "abbreviature": "tw",
-        "title": "week",
-        "__parameter_title": "weeks"
-    }
-THIS_MONTH_PERIOD = {
-        "abbreviature": "tm",
-        "title": "month",
-        "__parameter_title": "months"
-    }
-THIS_YEAR_PERIOD = {
-        "abbreviature": "ty",
-        "title": "year",
-        "__parameter_title": "years"
-    }
-ALL_TIME_PERIOD = {
-        "abbreviature": "at",
-        "title": "all time"
-    }
+THIS_DAY_PERIOD = Period(abbreviature = "td",
+                         title = "day",
+                         relativedelta_parameter_title = "days",
+                         django_template__date_filter = "j F",
+                         django_orm_date_truncation = "hour")
+
+THIS_WEEK_PERIOD = Period(abbreviature = "tw",
+                          title = "week",
+                          relativedelta_parameter_title = "weeks",
+                          django_template__date_filter = "j F",
+                          django_orm_date_truncation = "day")
+
+THIS_MONTH_PERIOD = Period(abbreviature = "tm",
+                           title = "month",
+                           relativedelta_parameter_title = "months",
+                           django_template__date_filter = "j F",
+                           django_orm_date_truncation = "day")
+
+THIS_YEAR_PERIOD = Period(abbreviature = "ty",
+                          title = "year",
+                          relativedelta_parameter_title = "years",
+                          django_template__date_filter = "F",
+                          django_orm_date_truncation = "month")
+
+ALL_TIME_PERIOD = Period(abbreviature = "at",
+                         title = "all time",
+                         django_template__date_filter = "Y",
+                         django_orm_date_truncation = "year")
+
 DICT_OF_PERIODS = {
-    THIS_DAY_PERIOD['abbreviature']: THIS_DAY_PERIOD,
-    THIS_WEEK_PERIOD['abbreviature']: THIS_WEEK_PERIOD,
-    THIS_MONTH_PERIOD['abbreviature']: THIS_MONTH_PERIOD,
-    THIS_YEAR_PERIOD['abbreviature']: THIS_YEAR_PERIOD,
-    ALL_TIME_PERIOD['abbreviature']: ALL_TIME_PERIOD
-}
+    THIS_DAY_PERIOD.abbreviature: THIS_DAY_PERIOD,
+    THIS_WEEK_PERIOD.abbreviature: THIS_WEEK_PERIOD,
+    THIS_MONTH_PERIOD.abbreviature: THIS_MONTH_PERIOD,
+    THIS_YEAR_PERIOD.abbreviature: THIS_YEAR_PERIOD,
+    ALL_TIME_PERIOD.abbreviature: ALL_TIME_PERIOD
+    }
 DEFAULT_PERIOD = THIS_DAY_PERIOD
