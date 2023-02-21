@@ -5,11 +5,9 @@
     <main id="user-profile">
         <div id="sidebar-wrapper">
             <div id="profile-photo-wrapper" class="profile-block">
-                <!-- 
-                    Сюда делаем кастомный темплейт тег на определение авы для пользователя:
-                        либо берём переданную с контекста, либо формируем DIV с инициалами
-                        пользователя на мягко-салатовом фоне.
-                -->
+                <button @click="count++" id="profile-photo-button">
+                    [[ count ]]
+                </button>
             </div>
 
             <div id="profile-friendslist-wrapper" class="profile-block">
@@ -104,8 +102,8 @@
     
                 <div id="task-blocks-wrapper">
                     <ul id="task-blocks">
-                        {% if tasks_by_period %}
-                            {% for period in tasks_by_period %}
+                        {% if number_of_tasks_by_period %}
+                            {% for period in number_of_tasks_by_period %}
                                 <li id="task-{{ forloop.counter }}" class="task-block">
                                     <div class="task-wrapper">
                                         {{ period.date|date:date_filter }} <br>
@@ -126,4 +124,5 @@
             </div>
         </div>
     </main>
+    <script type="module" src="{% static 'userprofile/js/main.js' %}"></script>
 {% endblock %}

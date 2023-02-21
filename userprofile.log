@@ -1,0 +1,338 @@
+| [DEBUG] — [2023-02-01 18:46:39,615] — [utils] | 
+ (0.003) 
+            SELECT
+                c.relname,
+                CASE
+                    WHEN c.relispartition THEN 'p'
+                    WHEN c.relkind IN ('m', 'v') THEN 'v'
+                    ELSE 't'
+                END
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('f', 'm', 'p', 'r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid)
+        ; args=None; alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:46:39,619] — [utils] | 
+ (0.001) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:53:03,756] — [utils] | 
+ (0.001) 
+            SELECT
+                c.relname,
+                CASE
+                    WHEN c.relispartition THEN 'p'
+                    WHEN c.relkind IN ('m', 'v') THEN 'v'
+                    ELSE 't'
+                END
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('f', 'm', 'p', 'r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid)
+        ; args=None; alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:53:03,759] — [utils] | 
+ (0.001) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:53:25,833] — [utils] | 
+ (0.001) 
+            SELECT
+                c.relname,
+                CASE
+                    WHEN c.relispartition THEN 'p'
+                    WHEN c.relkind IN ('m', 'v') THEN 'v'
+                    ELSE 't'
+                END
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('f', 'm', 'p', 'r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid)
+        ; args=None; alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:53:25,837] — [utils] | 
+ (0.001) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:53:36,473] — [utils] | 
+ (0.001) SELECT "authorization_customuser"."id", "authorization_customuser"."password", "authorization_customuser"."uuid", "authorization_customuser"."email", "authorization_customuser"."username", "authorization_customuser"."biography", "authorization_customuser"."picture", "authorization_customuser"."date_joined", "authorization_customuser"."last_login", "authorization_customuser"."is_active", "authorization_customuser"."is_admin", "authorization_customuser"."is_staff", "authorization_customuser"."is_superuser" FROM "authorization_customuser" WHERE "authorization_customuser"."email" = 'test@gmail.com' LIMIT 21; args=('test@gmail.com',); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:53:41,629] — [utils] | 
+ (0.001) SELECT "authorization_customuser"."id", "authorization_customuser"."password", "authorization_customuser"."uuid", "authorization_customuser"."email", "authorization_customuser"."username", "authorization_customuser"."biography", "authorization_customuser"."picture", "authorization_customuser"."date_joined", "authorization_customuser"."last_login", "authorization_customuser"."is_active", "authorization_customuser"."is_admin", "authorization_customuser"."is_staff", "authorization_customuser"."is_superuser" FROM "authorization_customuser" WHERE "authorization_customuser"."email" = 'test@gmail.com' LIMIT 21; args=('test@gmail.com',); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:53:41,754] — [utils] | 
+ (0.001) SELECT 1 AS "a" FROM "django_session" WHERE "django_session"."session_key" = 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir' LIMIT 1; args=(1, 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir'); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:53:41,756] — [utils] | 
+ (0.001) INSERT INTO "django_session" ("session_key", "session_data", "expire_date") VALUES ('w8mrunmywj87qzn4nymu8pqnuzw8t6ir', 'e30:1pNIEn:Rw6aZusPHAwyblsrlTFpfLXZyl8XAgOWuSsgx_38IaU', '2023-02-15T18:53:41.755303+00:00'::timestamptz); args=('w8mrunmywj87qzn4nymu8pqnuzw8t6ir', 'e30:1pNIEn:Rw6aZusPHAwyblsrlTFpfLXZyl8XAgOWuSsgx_38IaU', datetime.datetime(2023, 2, 15, 18, 53, 41, 755303, tzinfo=datetime.timezone.utc)); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:53:41,774] — [utils] | 
+ (0.009) UPDATE "authorization_customuser" SET "last_login" = '2023-02-01T18:53:41.765128+00:00'::timestamptz WHERE "authorization_customuser"."id" = 1; args=(datetime.datetime(2023, 2, 1, 18, 53, 41, 765128, tzinfo=datetime.timezone.utc), 1); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:53:41,777] — [utils] | 
+ (0.001) UPDATE "django_session" SET "session_data" = '.eJxVjMsOwiAQRf-FtSFQ3i7d-w1kYAapGkhKuzL-uzbpQrf3nHNfLMK21rgNWuKM7MwkO_1uCfKD2g7wDu3Wee5tXebEd4UfdPBrR3peDvfvoMKo31ooQZMhSE5otEVTsGCyNNqj8oJKEla6EDRqAMLitcWCbvJSlULJAHt_AON2OGk:1pNIEn:LQ2QEZT78-iFnSS1ph5P9jyI8rzd9hlBvZVnVV3TG3E', "expire_date" = '2023-02-15T18:53:41.776665+00:00'::timestamptz WHERE "django_session"."session_key" = 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir'; args=('.eJxVjMsOwiAQRf-FtSFQ3i7d-w1kYAapGkhKuzL-uzbpQrf3nHNfLMK21rgNWuKM7MwkO_1uCfKD2g7wDu3Wee5tXebEd4UfdPBrR3peDvfvoMKo31ooQZMhSE5otEVTsGCyNNqj8oJKEla6EDRqAMLitcWCbvJSlULJAHt_AON2OGk:1pNIEn:LQ2QEZT78-iFnSS1ph5P9jyI8rzd9hlBvZVnVV3TG3E', datetime.datetime(2023, 2, 15, 18, 53, 41, 776665, tzinfo=datetime.timezone.utc), 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir'); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:53:41,791] — [utils] | 
+ (0.001) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-02-01T18:53:41.783177+00:00'::timestamptz AND "django_session"."session_key" = 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir') LIMIT 21; args=(datetime.datetime(2023, 2, 1, 18, 53, 41, 783177, tzinfo=datetime.timezone.utc), 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir'); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:53:41,792] — [utils] | 
+ (0.001) SELECT "authorization_customuser"."id", "authorization_customuser"."password", "authorization_customuser"."uuid", "authorization_customuser"."email", "authorization_customuser"."username", "authorization_customuser"."biography", "authorization_customuser"."picture", "authorization_customuser"."date_joined", "authorization_customuser"."last_login", "authorization_customuser"."is_active", "authorization_customuser"."is_admin", "authorization_customuser"."is_staff", "authorization_customuser"."is_superuser" FROM "authorization_customuser" WHERE "authorization_customuser"."id" = 1 LIMIT 21; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:53:41,797] — [utils] | 
+ (0.002) SELECT "authorization_customuser"."username", "authorization_customuser"."uuid" FROM "authorization_customuser" INNER JOIN "authorization_customuser_friends" ON ("authorization_customuser"."id" = "authorization_customuser_friends"."to_customuser_id") WHERE "authorization_customuser_friends"."from_customuser_id" = 1 ORDER BY "authorization_customuser"."date_joined" ASC; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:53:41,800] — [utils] | 
+ (0.001) SELECT DATE_TRUNC('day', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') AS "date", COUNT(DATE_TRUNC('day', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC')) AS "number_of_tasks" FROM "userprofile_tasks" WHERE ("userprofile_tasks"."user_id" = 1 AND "userprofile_tasks"."date_created" BETWEEN '2023-01-31T18:53:41.793146+00:00'::timestamptz AND '2023-02-01T18:53:41.793146+00:00'::timestamptz) GROUP BY DATE_TRUNC('day', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') ORDER BY "date" ASC LIMIT 7; args=('day', 'UTC', 'day', 'UTC', 1, datetime.datetime(2023, 1, 31, 18, 53, 41, 793146, tzinfo=datetime.timezone.utc), datetime.datetime(2023, 2, 1, 18, 53, 41, 793146, tzinfo=datetime.timezone.utc), 'day', 'UTC'); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:54:06,703] — [utils] | 
+ (0.002) 
+            SELECT
+                c.relname,
+                CASE
+                    WHEN c.relispartition THEN 'p'
+                    WHEN c.relkind IN ('m', 'v') THEN 'v'
+                    ELSE 't'
+                END
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('f', 'm', 'p', 'r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid)
+        ; args=None; alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:54:06,707] — [utils] | 
+ (0.001) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:54:13,013] — [utils] | 
+ (0.001) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-02-01T18:54:13.004628+00:00'::timestamptz AND "django_session"."session_key" = 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir') LIMIT 21; args=(datetime.datetime(2023, 2, 1, 18, 54, 13, 4628, tzinfo=datetime.timezone.utc), 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir'); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:54:13,015] — [utils] | 
+ (0.001) SELECT "authorization_customuser"."id", "authorization_customuser"."password", "authorization_customuser"."uuid", "authorization_customuser"."email", "authorization_customuser"."username", "authorization_customuser"."biography", "authorization_customuser"."picture", "authorization_customuser"."date_joined", "authorization_customuser"."last_login", "authorization_customuser"."is_active", "authorization_customuser"."is_admin", "authorization_customuser"."is_staff", "authorization_customuser"."is_superuser" FROM "authorization_customuser" WHERE "authorization_customuser"."id" = 1 LIMIT 21; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:54:13,021] — [utils] | 
+ (0.001) SELECT "authorization_customuser"."username", "authorization_customuser"."uuid" FROM "authorization_customuser" INNER JOIN "authorization_customuser_friends" ON ("authorization_customuser"."id" = "authorization_customuser_friends"."to_customuser_id") WHERE "authorization_customuser_friends"."from_customuser_id" = 1 ORDER BY "authorization_customuser"."date_joined" ASC; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:54:13,027] — [utils] | 
+ (0.002) SELECT DATE_TRUNC('day', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') AS "date", COUNT(DATE_TRUNC('day', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC')) AS "number_of_tasks" FROM "userprofile_tasks" WHERE ("userprofile_tasks"."user_id" = 1 AND "userprofile_tasks"."date_created" BETWEEN '2023-01-31T18:54:13.015719+00:00'::timestamptz AND '2023-02-01T18:54:13.015719+00:00'::timestamptz) GROUP BY DATE_TRUNC('day', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') ORDER BY "date" ASC LIMIT 7; args=('day', 'UTC', 'day', 'UTC', 1, datetime.datetime(2023, 1, 31, 18, 54, 13, 15719, tzinfo=datetime.timezone.utc), datetime.datetime(2023, 2, 1, 18, 54, 13, 15719, tzinfo=datetime.timezone.utc), 'day', 'UTC'); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:54:51,136] — [utils] | 
+ (0.002) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-02-01T18:54:51.121730+00:00'::timestamptz AND "django_session"."session_key" = 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir') LIMIT 21; args=(datetime.datetime(2023, 2, 1, 18, 54, 51, 121730, tzinfo=datetime.timezone.utc), 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir'); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:54:51,138] — [utils] | 
+ (0.001) SELECT "authorization_customuser"."id", "authorization_customuser"."password", "authorization_customuser"."uuid", "authorization_customuser"."email", "authorization_customuser"."username", "authorization_customuser"."biography", "authorization_customuser"."picture", "authorization_customuser"."date_joined", "authorization_customuser"."last_login", "authorization_customuser"."is_active", "authorization_customuser"."is_admin", "authorization_customuser"."is_staff", "authorization_customuser"."is_superuser" FROM "authorization_customuser" WHERE "authorization_customuser"."id" = 1 LIMIT 21; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:54:51,141] — [utils] | 
+ (0.002) SELECT "authorization_customuser"."username", "authorization_customuser"."uuid" FROM "authorization_customuser" INNER JOIN "authorization_customuser_friends" ON ("authorization_customuser"."id" = "authorization_customuser_friends"."to_customuser_id") WHERE "authorization_customuser_friends"."from_customuser_id" = 1 ORDER BY "authorization_customuser"."date_joined" ASC; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:54:51,143] — [utils] | 
+ (0.001) SELECT DATE_TRUNC('day', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') AS "date", COUNT(DATE_TRUNC('day', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC')) AS "number_of_tasks" FROM "userprofile_tasks" WHERE ("userprofile_tasks"."user_id" = 1 AND "userprofile_tasks"."date_created" BETWEEN '2023-01-31T18:54:51.138697+00:00'::timestamptz AND '2023-02-01T18:54:51.138697+00:00'::timestamptz) GROUP BY DATE_TRUNC('day', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') ORDER BY "date" ASC LIMIT 7; args=('day', 'UTC', 'day', 'UTC', 1, datetime.datetime(2023, 1, 31, 18, 54, 51, 138697, tzinfo=datetime.timezone.utc), datetime.datetime(2023, 2, 1, 18, 54, 51, 138697, tzinfo=datetime.timezone.utc), 'day', 'UTC'); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:54:53,218] — [utils] | 
+ (0.002) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-02-01T18:54:53.205521+00:00'::timestamptz AND "django_session"."session_key" = 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir') LIMIT 21; args=(datetime.datetime(2023, 2, 1, 18, 54, 53, 205521, tzinfo=datetime.timezone.utc), 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir'); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:54:53,222] — [utils] | 
+ (0.002) SELECT "authorization_customuser"."id", "authorization_customuser"."password", "authorization_customuser"."uuid", "authorization_customuser"."email", "authorization_customuser"."username", "authorization_customuser"."biography", "authorization_customuser"."picture", "authorization_customuser"."date_joined", "authorization_customuser"."last_login", "authorization_customuser"."is_active", "authorization_customuser"."is_admin", "authorization_customuser"."is_staff", "authorization_customuser"."is_superuser" FROM "authorization_customuser" WHERE "authorization_customuser"."id" = 1 LIMIT 21; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:54:53,227] — [utils] | 
+ (0.002) SELECT "authorization_customuser"."username", "authorization_customuser"."uuid" FROM "authorization_customuser" INNER JOIN "authorization_customuser_friends" ON ("authorization_customuser"."id" = "authorization_customuser_friends"."to_customuser_id") WHERE "authorization_customuser_friends"."from_customuser_id" = 1 ORDER BY "authorization_customuser"."date_joined" ASC; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:54:53,233] — [utils] | 
+ (0.002) SELECT DATE_TRUNC('day', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') AS "date", COUNT(DATE_TRUNC('day', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC')) AS "number_of_tasks" FROM "userprofile_tasks" WHERE ("userprofile_tasks"."user_id" = 1 AND "userprofile_tasks"."date_created" BETWEEN '2023-01-31T18:54:53.223706+00:00'::timestamptz AND '2023-02-01T18:54:53.223706+00:00'::timestamptz) GROUP BY DATE_TRUNC('day', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') ORDER BY "date" ASC LIMIT 7; args=('day', 'UTC', 'day', 'UTC', 1, datetime.datetime(2023, 1, 31, 18, 54, 53, 223706, tzinfo=datetime.timezone.utc), datetime.datetime(2023, 2, 1, 18, 54, 53, 223706, tzinfo=datetime.timezone.utc), 'day', 'UTC'); alias=default 
+----------------------------------------------------------------------------------------------------
+|[DEBUG] — [2023-02-01 18:55:07,786] — [utils] | 
+ (0.003) 
+            SELECT
+                c.relname,
+                CASE
+                    WHEN c.relispartition THEN 'p'
+                    WHEN c.relkind IN ('m', 'v') THEN 'v'
+                    ELSE 't'
+                END
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('f', 'm', 'p', 'r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid)
+        ; args=None; alias=default 
+----------------------------------------------------------------------------------------------------
+|[DEBUG] — [2023-02-01 18:55:07,790] — [utils] | 
+ (0.001) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default 
+----------------------------------------------------------------------------------------------------
+|[DEBUG] — [2023-02-01 18:55:43,750] — [utils] | 
+ (0.003) 
+            SELECT
+                c.relname,
+                CASE
+                    WHEN c.relispartition THEN 'p'
+                    WHEN c.relkind IN ('m', 'v') THEN 'v'
+                    ELSE 't'
+                END
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('f', 'm', 'p', 'r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid)
+        ; args=None; alias=default 
+----------------------------------------------------------------------------------------------------
+|[DEBUG] — [2023-02-01 18:55:43,754] — [utils] | 
+ (0.001) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default 
+----------------------------------------------------------------------------------------------------
+|[DEBUG] — [2023-02-01 18:55:45,631] — [utils] | 
+ (0.001) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-02-01T18:55:45.615774+00:00'::timestamptz AND "django_session"."session_key" = 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir') LIMIT 21; args=(datetime.datetime(2023, 2, 1, 18, 55, 45, 615774, tzinfo=datetime.timezone.utc), 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir'); alias=default 
+----------------------------------------------------------------------------------------------------
+|[DEBUG] — [2023-02-01 18:55:45,633] — [utils] | 
+ (0.001) SELECT "authorization_customuser"."id", "authorization_customuser"."password", "authorization_customuser"."uuid", "authorization_customuser"."email", "authorization_customuser"."username", "authorization_customuser"."biography", "authorization_customuser"."picture", "authorization_customuser"."date_joined", "authorization_customuser"."last_login", "authorization_customuser"."is_active", "authorization_customuser"."is_admin", "authorization_customuser"."is_staff", "authorization_customuser"."is_superuser" FROM "authorization_customuser" WHERE "authorization_customuser"."id" = 1 LIMIT 21; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+|[DEBUG] — [2023-02-01 18:55:45,640] — [utils] | 
+ (0.001) SELECT "authorization_customuser"."username", "authorization_customuser"."uuid" FROM "authorization_customuser" INNER JOIN "authorization_customuser_friends" ON ("authorization_customuser"."id" = "authorization_customuser_friends"."to_customuser_id") WHERE "authorization_customuser_friends"."from_customuser_id" = 1 ORDER BY "authorization_customuser"."date_joined" ASC; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+|[DEBUG] — [2023-02-01 18:55:45,644] — [utils] | 
+ (0.001) SELECT DATE_TRUNC('day', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') AS "date", COUNT(DATE_TRUNC('day', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC')) AS "number_of_tasks" FROM "userprofile_tasks" WHERE ("userprofile_tasks"."user_id" = 1 AND "userprofile_tasks"."date_created" BETWEEN '2023-01-31T18:55:45.633871+00:00'::timestamptz AND '2023-02-01T18:55:45.633871+00:00'::timestamptz) GROUP BY DATE_TRUNC('day', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') ORDER BY "date" ASC LIMIT 7; args=('day', 'UTC', 'day', 'UTC', 1, datetime.datetime(2023, 1, 31, 18, 55, 45, 633871, tzinfo=datetime.timezone.utc), datetime.datetime(2023, 2, 1, 18, 55, 45, 633871, tzinfo=datetime.timezone.utc), 'day', 'UTC'); alias=default 
+----------------------------------------------------------------------------------------------------
+|[DEBUG] — [2023-02-01 18:55:50,329] — [utils] | 
+ (0.002) 
+            SELECT
+                c.relname,
+                CASE
+                    WHEN c.relispartition THEN 'p'
+                    WHEN c.relkind IN ('m', 'v') THEN 'v'
+                    ELSE 't'
+                END
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('f', 'm', 'p', 'r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid)
+        ; args=None; alias=default 
+----------------------------------------------------------------------------------------------------
+|[DEBUG] — [2023-02-01 18:55:50,331] — [utils] | 
+ (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:31,183] — [utils] | 
+ (0.002) 
+            SELECT
+                c.relname,
+                CASE
+                    WHEN c.relispartition THEN 'p'
+                    WHEN c.relkind IN ('m', 'v') THEN 'v'
+                    ELSE 't'
+                END
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('f', 'm', 'p', 'r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid)
+        ; args=None; alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:31,187] — [utils] | 
+ (0.001) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:32,734] — [utils] | 
+ (0.001) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-02-01T18:56:32.719326+00:00'::timestamptz AND "django_session"."session_key" = 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir') LIMIT 21; args=(datetime.datetime(2023, 2, 1, 18, 56, 32, 719326, tzinfo=datetime.timezone.utc), 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir'); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:32,805] — [utils] | 
+ (0.001) SELECT "authorization_customuser"."id", "authorization_customuser"."password", "authorization_customuser"."uuid", "authorization_customuser"."email", "authorization_customuser"."username", "authorization_customuser"."biography", "authorization_customuser"."picture", "authorization_customuser"."date_joined", "authorization_customuser"."last_login", "authorization_customuser"."is_active", "authorization_customuser"."is_admin", "authorization_customuser"."is_staff", "authorization_customuser"."is_superuser" FROM "authorization_customuser" WHERE "authorization_customuser"."id" = 1 LIMIT 21; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:32,813] — [utils] | 
+ (0.001) SELECT "authorization_customuser"."username", "authorization_customuser"."uuid" FROM "authorization_customuser" INNER JOIN "authorization_customuser_friends" ON ("authorization_customuser"."id" = "authorization_customuser_friends"."to_customuser_id") WHERE "authorization_customuser_friends"."from_customuser_id" = 1 ORDER BY "authorization_customuser"."date_joined" ASC; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:32,821] — [utils] | 
+ (0.002) SELECT DATE_TRUNC('day', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') AS "date", COUNT(DATE_TRUNC('day', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC')) AS "number_of_tasks" FROM "userprofile_tasks" WHERE ("userprofile_tasks"."user_id" = 1 AND "userprofile_tasks"."date_created" BETWEEN '2023-01-31T18:56:32.806773+00:00'::timestamptz AND '2023-02-01T18:56:32.806773+00:00'::timestamptz) GROUP BY DATE_TRUNC('day', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') ORDER BY "date" ASC LIMIT 7; args=('day', 'UTC', 'day', 'UTC', 1, datetime.datetime(2023, 1, 31, 18, 56, 32, 806773, tzinfo=datetime.timezone.utc), datetime.datetime(2023, 2, 1, 18, 56, 32, 806773, tzinfo=datetime.timezone.utc), 'day', 'UTC'); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:39,219] — [utils] | 
+ (0.001) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-02-01T18:56:39.206527+00:00'::timestamptz AND "django_session"."session_key" = 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir') LIMIT 21; args=(datetime.datetime(2023, 2, 1, 18, 56, 39, 206527, tzinfo=datetime.timezone.utc), 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir'); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:39,221] — [utils] | 
+ (0.001) SELECT "authorization_customuser"."id", "authorization_customuser"."password", "authorization_customuser"."uuid", "authorization_customuser"."email", "authorization_customuser"."username", "authorization_customuser"."biography", "authorization_customuser"."picture", "authorization_customuser"."date_joined", "authorization_customuser"."last_login", "authorization_customuser"."is_active", "authorization_customuser"."is_admin", "authorization_customuser"."is_staff", "authorization_customuser"."is_superuser" FROM "authorization_customuser" WHERE "authorization_customuser"."id" = 1 LIMIT 21; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:39,224] — [utils] | 
+ (0.001) SELECT "authorization_customuser"."username", "authorization_customuser"."uuid" FROM "authorization_customuser" INNER JOIN "authorization_customuser_friends" ON ("authorization_customuser"."id" = "authorization_customuser_friends"."to_customuser_id") WHERE "authorization_customuser_friends"."from_customuser_id" = 1 ORDER BY "authorization_customuser"."date_joined" ASC; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:39,228] — [utils] | 
+ (0.001) SELECT DATE_TRUNC('day', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') AS "date", COUNT(DATE_TRUNC('day', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC')) AS "number_of_tasks" FROM "userprofile_tasks" WHERE ("userprofile_tasks"."user_id" = 1 AND "userprofile_tasks"."date_created" BETWEEN '2023-01-25T18:56:39.222085+00:00'::timestamptz AND '2023-02-01T18:56:39.222085+00:00'::timestamptz) GROUP BY DATE_TRUNC('day', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') ORDER BY "date" ASC LIMIT 7; args=('day', 'UTC', 'day', 'UTC', 1, datetime.datetime(2023, 1, 25, 18, 56, 39, 222085, tzinfo=datetime.timezone.utc), datetime.datetime(2023, 2, 1, 18, 56, 39, 222085, tzinfo=datetime.timezone.utc), 'day', 'UTC'); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:44,866] — [utils] | 
+ (0.002) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-02-01T18:56:44.850381+00:00'::timestamptz AND "django_session"."session_key" = 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir') LIMIT 21; args=(datetime.datetime(2023, 2, 1, 18, 56, 44, 850381, tzinfo=datetime.timezone.utc), 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir'); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:44,870] — [utils] | 
+ (0.001) SELECT "authorization_customuser"."id", "authorization_customuser"."password", "authorization_customuser"."uuid", "authorization_customuser"."email", "authorization_customuser"."username", "authorization_customuser"."biography", "authorization_customuser"."picture", "authorization_customuser"."date_joined", "authorization_customuser"."last_login", "authorization_customuser"."is_active", "authorization_customuser"."is_admin", "authorization_customuser"."is_staff", "authorization_customuser"."is_superuser" FROM "authorization_customuser" WHERE "authorization_customuser"."id" = 1 LIMIT 21; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:44,877] — [utils] | 
+ (0.002) SELECT "authorization_customuser"."username", "authorization_customuser"."uuid" FROM "authorization_customuser" INNER JOIN "authorization_customuser_friends" ON ("authorization_customuser"."id" = "authorization_customuser_friends"."to_customuser_id") WHERE "authorization_customuser_friends"."from_customuser_id" = 1 ORDER BY "authorization_customuser"."date_joined" ASC; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:44,884] — [utils] | 
+ (0.002) SELECT DATE_TRUNC('month', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') AS "date", COUNT(DATE_TRUNC('month', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC')) AS "number_of_tasks" FROM "userprofile_tasks" WHERE ("userprofile_tasks"."user_id" = 1 AND "userprofile_tasks"."date_created" BETWEEN '2022-02-01T18:56:44.871167+00:00'::timestamptz AND '2023-02-01T18:56:44.871167+00:00'::timestamptz) GROUP BY DATE_TRUNC('month', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') ORDER BY "date" ASC LIMIT 7; args=('month', 'UTC', 'month', 'UTC', 1, datetime.datetime(2022, 2, 1, 18, 56, 44, 871167, tzinfo=datetime.timezone.utc), datetime.datetime(2023, 2, 1, 18, 56, 44, 871167, tzinfo=datetime.timezone.utc), 'month', 'UTC'); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:48,054] — [utils] | 
+ (0.001) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-02-01T18:56:48.045783+00:00'::timestamptz AND "django_session"."session_key" = 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir') LIMIT 21; args=(datetime.datetime(2023, 2, 1, 18, 56, 48, 45783, tzinfo=datetime.timezone.utc), 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir'); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:48,057] — [utils] | 
+ (0.001) SELECT "authorization_customuser"."id", "authorization_customuser"."password", "authorization_customuser"."uuid", "authorization_customuser"."email", "authorization_customuser"."username", "authorization_customuser"."biography", "authorization_customuser"."picture", "authorization_customuser"."date_joined", "authorization_customuser"."last_login", "authorization_customuser"."is_active", "authorization_customuser"."is_admin", "authorization_customuser"."is_staff", "authorization_customuser"."is_superuser" FROM "authorization_customuser" WHERE "authorization_customuser"."id" = 1 LIMIT 21; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:48,063] — [utils] | 
+ (0.001) SELECT "authorization_customuser"."username", "authorization_customuser"."uuid" FROM "authorization_customuser" INNER JOIN "authorization_customuser_friends" ON ("authorization_customuser"."id" = "authorization_customuser_friends"."to_customuser_id") WHERE "authorization_customuser_friends"."from_customuser_id" = 1 ORDER BY "authorization_customuser"."date_joined" ASC; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:48,068] — [utils] | 
+ (0.002) SELECT DATE_TRUNC('year', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') AS "date", COUNT(DATE_TRUNC('year', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC')) AS "number_of_tasks" FROM "userprofile_tasks" WHERE "userprofile_tasks"."user_id" = 1 GROUP BY DATE_TRUNC('year', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') ORDER BY "date" ASC LIMIT 7; args=('year', 'UTC', 'year', 'UTC', 1, 'year', 'UTC'); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:51,301] — [utils] | 
+ (0.002) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-02-01T18:56:51.284850+00:00'::timestamptz AND "django_session"."session_key" = 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir') LIMIT 21; args=(datetime.datetime(2023, 2, 1, 18, 56, 51, 284850, tzinfo=datetime.timezone.utc), 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir'); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:51,305] — [utils] | 
+ (0.001) SELECT "authorization_customuser"."id", "authorization_customuser"."password", "authorization_customuser"."uuid", "authorization_customuser"."email", "authorization_customuser"."username", "authorization_customuser"."biography", "authorization_customuser"."picture", "authorization_customuser"."date_joined", "authorization_customuser"."last_login", "authorization_customuser"."is_active", "authorization_customuser"."is_admin", "authorization_customuser"."is_staff", "authorization_customuser"."is_superuser" FROM "authorization_customuser" WHERE "authorization_customuser"."id" = 1 LIMIT 21; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:51,312] — [utils] | 
+ (0.002) SELECT "authorization_customuser"."username", "authorization_customuser"."uuid" FROM "authorization_customuser" INNER JOIN "authorization_customuser_friends" ON ("authorization_customuser"."id" = "authorization_customuser_friends"."to_customuser_id") WHERE "authorization_customuser_friends"."from_customuser_id" = 1 ORDER BY "authorization_customuser"."date_joined" ASC; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:51,319] — [utils] | 
+ (0.002) SELECT DATE_TRUNC('month', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') AS "date", COUNT(DATE_TRUNC('month', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC')) AS "number_of_tasks" FROM "userprofile_tasks" WHERE ("userprofile_tasks"."user_id" = 1 AND "userprofile_tasks"."date_created" BETWEEN '2022-02-01T18:56:51.306322+00:00'::timestamptz AND '2023-02-01T18:56:51.306322+00:00'::timestamptz) GROUP BY DATE_TRUNC('month', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') ORDER BY "date" ASC LIMIT 7; args=('month', 'UTC', 'month', 'UTC', 1, datetime.datetime(2022, 2, 1, 18, 56, 51, 306322, tzinfo=datetime.timezone.utc), datetime.datetime(2023, 2, 1, 18, 56, 51, 306322, tzinfo=datetime.timezone.utc), 'month', 'UTC'); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:54,175] — [utils] | 
+ (0.001) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-02-01T18:56:54.165101+00:00'::timestamptz AND "django_session"."session_key" = 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir') LIMIT 21; args=(datetime.datetime(2023, 2, 1, 18, 56, 54, 165101, tzinfo=datetime.timezone.utc), 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir'); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:54,178] — [utils] | 
+ (0.001) SELECT "authorization_customuser"."id", "authorization_customuser"."password", "authorization_customuser"."uuid", "authorization_customuser"."email", "authorization_customuser"."username", "authorization_customuser"."biography", "authorization_customuser"."picture", "authorization_customuser"."date_joined", "authorization_customuser"."last_login", "authorization_customuser"."is_active", "authorization_customuser"."is_admin", "authorization_customuser"."is_staff", "authorization_customuser"."is_superuser" FROM "authorization_customuser" WHERE "authorization_customuser"."id" = 1 LIMIT 21; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:54,184] — [utils] | 
+ (0.002) SELECT "authorization_customuser"."username", "authorization_customuser"."uuid" FROM "authorization_customuser" INNER JOIN "authorization_customuser_friends" ON ("authorization_customuser"."id" = "authorization_customuser_friends"."to_customuser_id") WHERE "authorization_customuser_friends"."from_customuser_id" = 1 ORDER BY "authorization_customuser"."date_joined" ASC; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:54,189] — [utils] | 
+ (0.001) SELECT DATE_TRUNC('year', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') AS "date", COUNT(DATE_TRUNC('year', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC')) AS "number_of_tasks" FROM "userprofile_tasks" WHERE "userprofile_tasks"."user_id" = 1 GROUP BY DATE_TRUNC('year', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') ORDER BY "date" ASC LIMIT 7; args=('year', 'UTC', 'year', 'UTC', 1, 'year', 'UTC'); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:56,276] — [utils] | 
+ (0.001) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-02-01T18:56:56.266033+00:00'::timestamptz AND "django_session"."session_key" = 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir') LIMIT 21; args=(datetime.datetime(2023, 2, 1, 18, 56, 56, 266033, tzinfo=datetime.timezone.utc), 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir'); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:56,279] — [utils] | 
+ (0.001) SELECT "authorization_customuser"."id", "authorization_customuser"."password", "authorization_customuser"."uuid", "authorization_customuser"."email", "authorization_customuser"."username", "authorization_customuser"."biography", "authorization_customuser"."picture", "authorization_customuser"."date_joined", "authorization_customuser"."last_login", "authorization_customuser"."is_active", "authorization_customuser"."is_admin", "authorization_customuser"."is_staff", "authorization_customuser"."is_superuser" FROM "authorization_customuser" WHERE "authorization_customuser"."id" = 1 LIMIT 21; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:56,285] — [utils] | 
+ (0.001) SELECT "authorization_customuser"."username", "authorization_customuser"."uuid" FROM "authorization_customuser" INNER JOIN "authorization_customuser_friends" ON ("authorization_customuser"."id" = "authorization_customuser_friends"."to_customuser_id") WHERE "authorization_customuser_friends"."from_customuser_id" = 1 ORDER BY "authorization_customuser"."date_joined" ASC; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:56,290] — [utils] | 
+ (0.002) SELECT DATE_TRUNC('month', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') AS "date", COUNT(DATE_TRUNC('month', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC')) AS "number_of_tasks" FROM "userprofile_tasks" WHERE ("userprofile_tasks"."user_id" = 1 AND "userprofile_tasks"."date_created" BETWEEN '2022-02-01T18:56:56.280263+00:00'::timestamptz AND '2023-02-01T18:56:56.280263+00:00'::timestamptz) GROUP BY DATE_TRUNC('month', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') ORDER BY "date" ASC LIMIT 7; args=('month', 'UTC', 'month', 'UTC', 1, datetime.datetime(2022, 2, 1, 18, 56, 56, 280263, tzinfo=datetime.timezone.utc), datetime.datetime(2023, 2, 1, 18, 56, 56, 280263, tzinfo=datetime.timezone.utc), 'month', 'UTC'); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:59,181] — [utils] | 
+ (0.001) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-02-01T18:56:59.169570+00:00'::timestamptz AND "django_session"."session_key" = 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir') LIMIT 21; args=(datetime.datetime(2023, 2, 1, 18, 56, 59, 169570, tzinfo=datetime.timezone.utc), 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir'); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:59,183] — [utils] | 
+ (0.001) SELECT "authorization_customuser"."id", "authorization_customuser"."password", "authorization_customuser"."uuid", "authorization_customuser"."email", "authorization_customuser"."username", "authorization_customuser"."biography", "authorization_customuser"."picture", "authorization_customuser"."date_joined", "authorization_customuser"."last_login", "authorization_customuser"."is_active", "authorization_customuser"."is_admin", "authorization_customuser"."is_staff", "authorization_customuser"."is_superuser" FROM "authorization_customuser" WHERE "authorization_customuser"."id" = 1 LIMIT 21; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:59,187] — [utils] | 
+ (0.001) SELECT "authorization_customuser"."username", "authorization_customuser"."uuid" FROM "authorization_customuser" INNER JOIN "authorization_customuser_friends" ON ("authorization_customuser"."id" = "authorization_customuser_friends"."to_customuser_id") WHERE "authorization_customuser_friends"."from_customuser_id" = 1 ORDER BY "authorization_customuser"."date_joined" ASC; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:56:59,190] — [utils] | 
+ (0.001) SELECT DATE_TRUNC('day', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') AS "date", COUNT(DATE_TRUNC('day', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC')) AS "number_of_tasks" FROM "userprofile_tasks" WHERE ("userprofile_tasks"."user_id" = 1 AND "userprofile_tasks"."date_created" BETWEEN '2023-01-01T18:56:59.184197+00:00'::timestamptz AND '2023-02-01T18:56:59.184197+00:00'::timestamptz) GROUP BY DATE_TRUNC('day', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') ORDER BY "date" ASC LIMIT 7; args=('day', 'UTC', 'day', 'UTC', 1, datetime.datetime(2023, 1, 1, 18, 56, 59, 184197, tzinfo=datetime.timezone.utc), datetime.datetime(2023, 2, 1, 18, 56, 59, 184197, tzinfo=datetime.timezone.utc), 'day', 'UTC'); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:57:01,561] — [utils] | 
+ (0.002) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-02-01T18:57:01.545499+00:00'::timestamptz AND "django_session"."session_key" = 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir') LIMIT 21; args=(datetime.datetime(2023, 2, 1, 18, 57, 1, 545499, tzinfo=datetime.timezone.utc), 'w8mrunmywj87qzn4nymu8pqnuzw8t6ir'); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:57:01,565] — [utils] | 
+ (0.001) SELECT "authorization_customuser"."id", "authorization_customuser"."password", "authorization_customuser"."uuid", "authorization_customuser"."email", "authorization_customuser"."username", "authorization_customuser"."biography", "authorization_customuser"."picture", "authorization_customuser"."date_joined", "authorization_customuser"."last_login", "authorization_customuser"."is_active", "authorization_customuser"."is_admin", "authorization_customuser"."is_staff", "authorization_customuser"."is_superuser" FROM "authorization_customuser" WHERE "authorization_customuser"."id" = 1 LIMIT 21; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:57:01,572] — [utils] | 
+ (0.002) SELECT "authorization_customuser"."username", "authorization_customuser"."uuid" FROM "authorization_customuser" INNER JOIN "authorization_customuser_friends" ON ("authorization_customuser"."id" = "authorization_customuser_friends"."to_customuser_id") WHERE "authorization_customuser_friends"."from_customuser_id" = 1 ORDER BY "authorization_customuser"."date_joined" ASC; args=(1,); alias=default 
+----------------------------------------------------------------------------------------------------
+| [DEBUG] — [2023-02-01 18:57:01,578] — [utils] | 
+ (0.002) SELECT DATE_TRUNC('month', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') AS "date", COUNT(DATE_TRUNC('month', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC')) AS "number_of_tasks" FROM "userprofile_tasks" WHERE ("userprofile_tasks"."user_id" = 1 AND "userprofile_tasks"."date_created" BETWEEN '2022-02-01T18:57:01.566402+00:00'::timestamptz AND '2023-02-01T18:57:01.566402+00:00'::timestamptz) GROUP BY DATE_TRUNC('month', "userprofile_tasks"."date_created" AT TIME ZONE 'UTC') ORDER BY "date" ASC LIMIT 7; args=('month', 'UTC', 'month', 'UTC', 1, datetime.datetime(2022, 2, 1, 18, 57, 1, 566402, tzinfo=datetime.timezone.utc), datetime.datetime(2023, 2, 1, 18, 57, 1, 566402, tzinfo=datetime.timezone.utc), 'month', 'UTC'); alias=default 
+----------------------------------------------------------------------------------------------------

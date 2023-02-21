@@ -1,4 +1,5 @@
 {% extends 'authorization/navigation_menu.html' %}
+{% load static %}
 
 {% block main_content %}
     <main id="main_content">
@@ -20,7 +21,7 @@
                         {{ form.email_conf }}
 
                         <div class="reg-step-menu" id="reg-step-menu--first-step">
-                            <button id="reg-next-step__button" type="button" onclick="swipe_next_reg_step()">
+                            <button id="reg-next-step__button" type="button" onclick="swipeNextStep()">
                                 Next step
                             </button>
                         </div>
@@ -35,17 +36,17 @@
                         {{ form.password_conf }}
 
                         <div class="reg-step-menu" id="reg-step-menu--second-step">
-                            <button id="reg-previous-step__button" type="button" onclick="swipe_prev_reg_step()">
+                            <button id="reg-previous-step__button" type="button" onclick="swipePrevStep()" disabled>
                                 Previous step
                             </button>
 
-                            <button id="reg-submit-step__button">
+                            <button id="reg-submit-step__button" disabled>
                                 Sign up
                             </button>
                         </div>
 
                     </fieldset>
-                    <script src="../../static/authorization/js/swipe_reg_steps.js"></script>
+                    <script src="{% static 'authorization/js/swipe_reg_steps.js' %}"></script>
                 </div>
                 
             </form>

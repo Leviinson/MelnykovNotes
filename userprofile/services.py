@@ -73,14 +73,14 @@ def _define_period_parameter_for_relativedelta(relativedelta_parameter_title: st
     assert relativedelta_parameter_title is not None, \
            "Here must be passed concrete period, not 'all time'." 
     return {relativedelta_parameter_title: 1} # 1 because we add one day/one month/one year to
-                                 # actual date
+                                              # actual date
 
 
 def _get_add_periods_titles_and_abbreviatures(period_abbreviature: str) -> list[str]:
     """
     Returns:
     --------
-        list of titles of additional periods
+        list of titles and abbreviatures of additional periods
     
     Parameters:
     -----------
@@ -89,9 +89,7 @@ def _get_add_periods_titles_and_abbreviatures(period_abbreviature: str) -> list[
     """
     periods_from_settings: dict = settings.DICT_OF_PERIODS.copy()
     periods_from_settings.pop(period_abbreviature)
-    titles = [periods_from_settings[period].title for period in periods_from_settings]
-    abbreviatures = [periods_from_settings[period].abbreviature for period in periods_from_settings]
-    return zip(titles, abbreviatures)
+    return [(period.title, period.abbreviature) for period in periods_from_settings.values()]
 
 
 def _calculate_range_for_tasks(period_parameter_for_relativedelta: dict):
@@ -105,14 +103,14 @@ def _calculate_range_for_tasks(period_parameter_for_relativedelta: dict):
         period_parameter_for_relativedelta: dict
             looks like {"years": 1}
     """
-    requested_user_datetime_now = timezone.now()
-    last_date = requested_user_datetime_now - relativedelta(**period_parameter_for_relativedelta)
-    return requested_user_datetime_now, last_date
+    now = timezone.now()
+    last_date = now - relativedelta(**period_parameter_for_relativedelta)
+    return now, last_date
 
 
 def _select_requested_user_tasks_from_db_wo_period(requested_user: AbstractBaseUser,
                                                    sender_user: AbstractBaseUser,
-                                                   is_sender_user_owner: bool):
+                                                   is_sender_user_owner: bool) -> QuerySet:
     """
     Returns:
     --------
@@ -126,20 +124,19 @@ def _select_requested_user_tasks_from_db_wo_period(requested_user: AbstractBaseU
     """
     
     if is_sender_user_owner:
-        tasks = requested_user.tasks_set.all()
-        return tasks
+        accessed_tasks = requested_user.tasks_set.all()
     else:
-        public_tasks = requested_user.tasks_set.filter(is_private = False).order_by('date_created')
+        public_tasks = requested_user.tasks_set.filter(is_private = False)
         private_tasks = requested_user.tasks_set.filter(pk__in = 
-                                                        sender_user.admitted_tasks.values_list('task__pk', flat = True)).order_by('date_created')
-        accessed_tasks = public_tasks | private_tasks  
-        return accessed_tasks
+                                                        sender_user.admitted_tasks.values_list('task__pk', flat = True))
+        accessed_tasks = public_tasks | private_tasks
+    return accessed_tasks
 
 
 def _select_requested_user_tasks_from_db_by_period(requested_user: AbstractBaseUser,
                                                    sender_user: AbstractBaseUser,
                                                    is_sender_user_owner: bool,
-                                                   relativedelta_parameter_title: str | None):
+                                                   relativedelta_parameter_title: str | None) -> QuerySet:
     """
     Returns:
     --------
@@ -155,9 +152,8 @@ def _select_requested_user_tasks_from_db_by_period(requested_user: AbstractBaseU
     period_parameter_for_relativedelta = _define_period_parameter_for_relativedelta(relativedelta_parameter_title)
     sender_user_datetime_now, last_date = _calculate_range_for_tasks(period_parameter_for_relativedelta)
     if is_sender_user_owner:
-        tasks = requested_user.tasks_set.filter(date_created__range = (last_date,
-                                                                       sender_user_datetime_now))
-        return tasks
+        accessed_tasks = requested_user.tasks_set.filter(date_created__range = (last_date,
+                                                                                sender_user_datetime_now))
     else:
         public_tasks = requested_user.tasks_set.filter(is_private = False,
                                                        date_created__range = (last_date,
@@ -166,7 +162,8 @@ def _select_requested_user_tasks_from_db_by_period(requested_user: AbstractBaseU
                                                                                                         flat = True),
                                                         date_created__range = (last_date,
                                                                                sender_user_datetime_now))
-        return public_tasks | private_tasks
+        accessed_tasks = public_tasks | private_tasks
+    return accessed_tasks
 
 
 def _get_requested_user_tasks_grouped_by_period_and_access_from_db(requested_user: AbstractBaseUser,
@@ -182,8 +179,8 @@ def _get_requested_user_tasks_grouped_by_period_and_access_from_db(requested_use
     -----------
         requested_user: AbsctractBaseUser
         sender_user: AbstractBaseUser
-        period_entity_from_settings: MelnykovNotes.typehints.Period -- settings.XXX_PERIOD variable
         is_sender_user_owner: bool
+        period_entity_from_settings: MelnykovNotes.typehints.Period -- settings.THIS_XXX_PERIOD variable
     """
     if period_entity_from_settings.abbreviature == settings.ALL_TIME_PERIOD.abbreviature:
         accessed_tasks = _select_requested_user_tasks_from_db_wo_period(requested_user = requested_user,
@@ -209,16 +206,17 @@ def get_context_for_userprofile_page(request: HttpRequest,
     --------
         context for view with next keys:
             :dict_key: 'user' -- CustomUser model
-            :dict_key: 'tasks' -- QuerySet[Tasks]
+            :dict_key: 'number_of_tasks_by_period' -- QuerySet[Tasks]
             :dict_key: 'friends' -- Queryset[UserModel.friends]
-            :dict_key: 'owner' -- boolean value
+            :dict_key: 'is_owner' -- boolean value
             :dict_key: 'selected_period_title' -- str
             :dict_key: 'additional_periods_titles_and_abbreviatures' -- list[str]
+            :dict_key: 'date_filter' -- str (uses to asign value for "date" filter parameter of django templates)
 
     Parameters:
     -----------
         request: django.http.HttpRequest
-
+    
         period_abbreviature: str
 
         requested_user_uuid: uuid.UUID
@@ -234,8 +232,8 @@ def get_context_for_userprofile_page(request: HttpRequest,
                                                                                                        is_sender_user_owner,
                                                                                                        period_entity_from_settings)
     return {'user': requested_user,
-            'tasks_by_period': requested_user_tasks_by_period_and_access,
-            'friends': requested_user.friends.all().values("username", "uuid"),
+            'number_of_tasks_by_period': requested_user_tasks_by_period_and_access,
+            'friends': requested_user.friends.values("username", "uuid").all(),
             'is_owner': is_sender_user_owner,
             'selected_period_title': selected_period_title,
             'additional_periods_titles_and_abbreviatures': add_periods_titles_and_abbreviatures,

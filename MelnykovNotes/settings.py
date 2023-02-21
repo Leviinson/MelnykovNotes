@@ -21,10 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure--wn*owr84kqkg_bd83-_vjo5j^f9ohdgsq7(tp0_0d(s@87@y)'
+SECRET_KEY = 'wowowowo!!!!itstheMostDIFfuCULTCodeThat1Ha533ver8een'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 ALLOWED_HOSTS = ['*']
 INTERNAL_IPS = ['127.0.0.1']
@@ -43,7 +45,6 @@ INSTALLED_APPS = [
     'about.apps.AboutConfig',
     'news.apps.NewsConfig',
     'userprofile.apps.UserprofileConfig',
-    'debug_toolbar'
 ]
 
 MIDDLEWARE = [
@@ -77,6 +78,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'MelnykovNotes.wsgi.application'
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(BASE_DIR, 'caching'),
+    }
+}
+
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -90,6 +98,37 @@ DATABASES = {
         'USER': os.getenv('DB_USERNAME'),
         'PASSWORD': os.getenv('DB_PASSWORD')
         }
+}
+LOGGING = {
+    'version': 1,
+    'formatters': {
+        'verbose': {
+            'format': '| [{levelname}] — [{asctime}] — [{module}] | \n {message} \n' + '-'*100,
+            'style': '{',
+        }
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+        'userprofile_log_handler': {
+            'level':'DEBUG' if DEBUG else 'WARNING',
+            'class':'logging.FileHandler',
+            'filename': 'userprofile.log',
+            'formatter': 'verbose'
+        }
+    },
+    'loggers': {
+        'django.db.backends': {
+            'level': 'DEBUG',
+        },
+        'userprofile': {
+            'handlers': ['userprofile_log_handler'],
+        }
+    },
+    'root': {
+        'handlers': ['userprofile_log_handler'],
+    }
 }
 
 
@@ -168,7 +207,7 @@ THIS_DAY_PERIOD = Period(abbreviature = "td",
                          title = "day",
                          relativedelta_parameter_title = "days",
                          django_template__date_filter = "j F",
-                         django_orm_date_truncation = "hour")
+                         django_orm_date_truncation = "day")
 
 THIS_WEEK_PERIOD = Period(abbreviature = "tw",
                           title = "week",
@@ -201,3 +240,6 @@ DICT_OF_PERIODS = {
     ALL_TIME_PERIOD.abbreviature: ALL_TIME_PERIOD
     }
 DEFAULT_PERIOD = THIS_DAY_PERIOD
+
+if DEBUG:
+    INSTALLED_APPS.append('debug_toolbar')
